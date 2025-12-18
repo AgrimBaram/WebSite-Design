@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sunset Hostel - House Rules</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background: #f5f5f5;
+        color: #333;
+      }
+
+      .top-header {
+        background: #2c3e50;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+      }
+
+      .top-header h1 {
+        font-size: 36px;
+        margin-bottom: 10px;
+      }
+
+      .top-header p {
+        font-size: 18px;
+        color: #f39c12;
+      }
+
+      .nav-container {
+        background: #34495e;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .main-nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+      }
+
+      .logo {
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .logo span {
+        color: #f39c12;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-links li {
+        position: relative;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        padding: 20px 15px;
+        display: block;
+        transition: all 0.3s;
+        font-size: 15px;
+      }
+
+      .nav-links a:hover {
+        background: #2c3e50;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 10px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 80px 20px;
+      }
+
+      .section {
+        margin-bottom: 100px;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      .section-title h2 {
+        font-size: 36px;
+        color: #2c3e50;
+        display: inline-block;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #f39c12;
+      }
+
+      .rules-banner {
+        background: linear-gradient(135deg, #2c3e50, #34495e);
+        padding: 80px 40px;
+        border-radius: 15px;
+        text-align: center;
+        color: white;
+        margin-bottom: 80px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s;
+      }
+
+      .rules-banner.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .rules-banner h2 {
+        font-size: 42px;
+        margin-bottom: 20px;
+      }
+
+      .rules-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+      }
+
+      .rule-card {
+        background: white;
+        padding: 40px 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s;
+        position: relative;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .rule-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .rule-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .rule-icon {
+        font-size: 48px;
+        color: #e74c3c;
+        margin-bottom: 20px;
+      }
+
+      .rule-number {
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        background: #3498db;
+        color: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 20px;
+      }
+
+      .important-box {
+        background: #fff3cd;
+        border-left: 5px solid #ffc107;
+        padding: 30px;
+        border-radius: 10px;
+        margin: 50px 0;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s;
+      }
+
+      .important-box.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .warning-box {
+        background: #f8d7da;
+        border-left: 5px solid #dc3545;
+        padding: 30px;
+        border-radius: 10px;
+        margin: 50px 0;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s;
+      }
+
+      .warning-box.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .checklist {
+        list-style: none;
+        margin-top: 30px;
+      }
+
+      .checklist li {
+        padding: 15px 0;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+      }
+
+      .checklist li:last-child {
+        border-bottom: none;
+      }
+
+      .checklist i {
+        color: #2ecc71;
+        margin-right: 15px;
+        font-size: 20px;
+      }
+
+      .hours-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 30px;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.3s;
+      }
+
+      .hours-table.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .hours-table th {
+        background: #3498db;
+        color: white;
+        padding: 20px;
+        text-align: left;
+      }
+
+      .hours-table td {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .hours-table tr:hover {
+        background: #f9f9f9;
+      }
+
+      .policy-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+      }
+
+      .policy-card {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .policy-card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .policy-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      }
+
+      .policy-icon {
+        font-size: 40px;
+        color: #3498db;
+        margin-bottom: 20px;
+      }
+
+      .footer {
+        background: #2c3e50;
+        color: white;
+        padding: 60px 0 30px;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+      }
+
+      .footer-column h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: #f39c12;
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 10px;
+      }
+
+      .footer-links a {
+        color: #bdc3c7;
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: #f39c12;
+        padding-left: 5px;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .social-icons a {
+        width: 40px;
+        height: 40px;
+        background: #34495e;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+
+      .social-icons a:hover {
+        background: #f39c12;
+        transform: translateY(-3px);
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 30px;
+        margin-top: 30px;
+        border-top: 1px solid #34495e;
+        color: #bdc3c7;
+      }
+
+      @media (max-width: 1024px) {
+        .nav-links {
+          position: fixed;
+          top: 70px;
+          left: 0;
+          width: 100%;
+          background: #2c3e50;
+          flex-direction: column;
+          align-items: center;
+          padding: 20px 0;
+          transform: translateY(-100%);
+          opacity: 0;
+          transition: all 0.3s;
+          z-index: 99;
+        }
+
+        .nav-links.active {
+          transform: translateY(0);
+          opacity: 1;
+        }
+
+        .nav-links li {
+          width: 100%;
+          text-align: center;
+        }
+
+        .nav-links a {
+          padding: 15px;
+          width: 100%;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .rules-banner h2 {
+          font-size: 32px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .section-title h2 {
+          font-size: 28px;
+        }
+
+        .rules-banner {
+          padding: 50px 20px;
+        }
+
+        .rules-banner h2 {
+          font-size: 28px;
+        }
+
+        .rules-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hours-table {
+          display: block;
+          overflow-x: auto;
+        }
+
+        .policy-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-content {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .btn {
+        display: inline-block;
+        background: #e74c3c;
+        color: white;
+        padding: 15px 30px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
+
+      .btn:hover {
+        background: #c0392b;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top-header">
+      <h1>Sunset Hostel</h1>
+      <p>House Rules & Policies</p>
+    </header>
+
+    <nav class="nav-container">
+      <div class="main-nav">
+        <div class="logo">Sunset<span>Hostel</span></div>
+
+        <ul class="nav-links" id="navLinks">
+          <li>
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+          </li>
+          <li>
+            <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+          </li>
+          <li>
+            <a href="rooms.html"><i class="fas fa-bed"></i> Rooms</a>
+          </li>
+          <li>
+            <a href="facilities.html"
+              ><i class="fas fa-swimming-pool"></i> Facilities</a
+            >
+          </li>
+          <li>
+            <a href="gallery.html"><i class="fas fa-images"></i> Gallery</a>
+          </li>
+          <li>
+            <a href="pricing.html"><i class="fas fa-tag"></i> Pricing</a>
+          </li>
+          <li>
+            <a href="location.html"
+              ><i class="fas fa-map-marker-alt"></i> Location</a
+            >
+          </li>
+          <li>
+            <a href="rules.html" class="active"
+              ><i class="fas fa-clipboard-list"></i> Rules</a
+            >
+          </li>
+          <li>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+          </li>
+          <li>
+            <a href="booking.html"
+              ><i class="fas fa-calendar-check"></i> Booking</a
+            >
+          </li>
+          <li>
+            <a href="reviews.html"><i class="fas fa-star"></i> Reviews</a>
+          </li>
+          <li>
+            <a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a>
+          </li>
+        </ul>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+
+    <main class="container">
+      <div class="rules-banner">
+        <h2>Our House Rules</h2>
+        <p style="font-size: 20px; max-width: 800px; margin: 0 auto">
+          To ensure a comfortable stay for all guests, please read and follow
+          our rules
+        </p>
+      </div>
+
+      <section class="section">
+        <div class="section-title">
+          <h2>Essential Rules</h2>
+        </div>
+
+        <div class="rules-grid">
+          <div class="rule-card">
+            <div class="rule-number">1</div>
+            <i class="fas fa-user-clock rule-icon"></i>
+            <h3>Check-in & Check-out</h3>
+            <p>
+              Check-in: 2:00 PM - 11:00 PM<br />Check-out: by 11:00 AM<br />Late
+              check-out available upon request
+            </p>
+          </div>
+
+          <div class="rule-card">
+            <div class="rule-number">2</div>
+            <i class="fas fa-volume-mute rule-icon"></i>
+            <h3>Quiet Hours</h3>
+            <p>
+              Quiet hours: 10:00 PM - 7:00 AM<br />Please respect other
+              guests<br />Use headphones in common areas
+            </p>
+          </div>
+
+          <div class="rule-card">
+            <div class="rule-number">3</div>
+            <i class="fas fa-smoking-ban rule-icon"></i>
+            <h3>No Smoking</h3>
+            <p>
+              Strictly no smoking indoors<br />Designated smoking area
+              outside<br />$200 fine for indoor smoking
+            </p>
+          </div>
+
+          <div class="rule-card">
+            <div class="rule-number">4</div>
+            <i class="fas fa-shoe-prints rule-icon"></i>
+            <h3>Shoes Off</h3>
+            <p>
+              Remove shoes in dormitories<br />Use provided slippers<br />Keep
+              floors clean for everyone
+            </p>
+          </div>
+
+          <div class="rule-card">
+            <div class="rule-number">5</div>
+            <i class="fas fa-lock rule-icon"></i>
+            <h3>Security</h3>
+            <p>
+              Always lock your locker<br />Don't share access codes<br />Report
+              suspicious activity
+            </p>
+          </div>
+
+          <div class="rule-card">
+            <div class="rule-number">6</div>
+            <i class="fas fa-recycle rule-icon"></i>
+            <h3>Cleanliness</h3>
+            <p>
+              Clean up after yourself<br />Use designated trash bins<br />Recycle
+              when possible
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="important-box">
+        <h3 style="color: #856404; margin-bottom: 15px">
+          <i class="fas fa-exclamation-triangle"></i> Important Notice
+        </h3>
+        <p style="font-size: 18px">
+          Guests who violate house rules may be asked to leave immediately
+          without refund. Repeated violations will result in being banned from
+          the hostel.
+        </p>
+      </div>
+
+      <section class="section">
+        <div class="section-title">
+          <h2>Kitchen & Common Areas</h2>
+        </div>
+
+        <ul class="checklist">
+          <li>
+            <i class="fas fa-check"></i> <strong>Clean as you go:</strong> Wash
+            your dishes immediately after use
+          </li>
+          <li>
+            <i class="fas fa-check"></i> <strong>Label your food:</strong> Use
+            provided labels and containers
+          </li>
+          <li>
+            <i class="fas fa-check"></i> <strong>Share the space:</strong> Be
+            mindful of others waiting to use facilities
+          </li>
+          <li>
+            <i class="fas fa-check"></i> <strong>Conserve energy:</strong> Turn
+            off lights and appliances when not in use
+          </li>
+          <li>
+            <i class="fas fa-check"></i> <strong>Respect food:</strong> Don't
+            consume food that isn't yours
+          </li>
+          <li>
+            <i class="fas fa-check"></i> <strong>Report issues:</strong> Inform
+            staff of any maintenance problems
+          </li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <div class="section-title">
+          <h2>Hostel Hours</h2>
+        </div>
+
+        <table class="hours-table">
+          <thead>
+            <tr>
+              <th>Area</th>
+              <th>Opening Hours</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Reception</td>
+              <td>24/7</td>
+              <td>Staff available at all times</td>
+            </tr>
+            <tr>
+              <td>Common Kitchen</td>
+              <td>6:00 AM - 11:00 PM</td>
+              <td>Closed for cleaning 2-3 PM daily</td>
+            </tr>
+            <tr>
+              <td>TV Lounge</td>
+              <td>7:00 AM - Midnight</td>
+              <td>Volume low after 10:00 PM</td>
+            </tr>
+            <tr>
+              <td>Study Room</td>
+              <td>24/7</td>
+              <td>Silence always maintained</td>
+            </tr>
+            <tr>
+              <td>Laundry Room</td>
+              <td>8:00 AM - 10:00 PM</td>
+              <td>Last wash 9:00 PM</td>
+            </tr>
+            <tr>
+              <td>Rooftop Terrace</td>
+              <td>9:00 AM - 10:00 PM</td>
+              <td>Weather permitting</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <div class="warning-box">
+        <h3 style="color: #721c24; margin-bottom: 15px">
+          <i class="fas fa-ban"></i> Prohibited Items & Activities
+        </h3>
+        <p style="font-size: 18px">
+          The following are strictly prohibited: Weapons of any kind, illegal
+          substances, open flames/candles, pets (except service animals),
+          excessive alcohol consumption, loud parties, and any form of
+          harassment or discrimination.
+        </p>
+      </div>
+
+      <section class="section">
+        <div class="section-title">
+          <h2>Policies</h2>
+        </div>
+
+        <div class="policy-grid">
+          <div class="policy-card">
+            <i class="fas fa-calendar-times policy-icon"></i>
+            <h3>Cancellation Policy</h3>
+            <p>
+              Free cancellation 48 hours before arrival. 50% charge for late
+              cancellation. No refund for no-shows.
+            </p>
+          </div>
+
+          <div class="policy-card">
+            <i class="fas fa-key policy-icon"></i>
+            <h3>Lost Key Policy</h3>
+            <p>
+              $25 fee for lost room keys. $50 fee for lost key cards. Report
+              immediately to reception.
+            </p>
+          </div>
+
+          <div class="policy-card">
+            <i class="fas fa-user-plus policy-icon"></i>
+            <h3>Visitor Policy</h3>
+            <p>
+              Registered guests only in rooms. Visitors allowed in common areas
+              until 10:00 PM only.
+            </p>
+          </div>
+
+          <div class="policy-card">
+            <i class="fas fa-child policy-icon"></i>
+            <h3>Age Policy</h3>
+            <p>
+              Minimum age: 18 years. Under 18 must be accompanied by
+              parent/guardian in private rooms only.
+            </p>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px">
+          <p
+            style="
+              font-size: 18px;
+              color: #666;
+              max-width: 800px;
+              margin: 0 auto 30px;
+            "
+          >
+            By making a reservation, you agree to abide by all house rules and
+            policies. Our staff is here to help - if you have any questions,
+            please don't hesitate to ask!
+          </p>
+          <a href="booking.html" class="btn">I Agree - Book Now</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>Sunset Hostel</h3>
+          <p>
+            Providing exceptional budget accommodation since 2010. Experience
+            comfort, community, and value at our premium hostel.
+          </p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-tripadvisor"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="rooms.html">Rooms & Rates</a></li>
+            <li><a href="facilities.html">Facilities</a></li>
+            <li><a href="gallery.html">Photo Gallery</a></li>
+            <li><a href="booking.html">Online Booking</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Information</h3>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="location.html">Location & Map</a></li>
+            <li><a href="rules.html">House Rules</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Newsletter</h3>
+          <p>Subscribe for exclusive offers and travel tips</p>
+          <div style="margin-top: 20px">
+            <input
+              type="email"
+              placeholder="Your email"
+              style="
+                width: 100%;
+                padding: 12px;
+                border: none;
+                border-radius: 5px;
+                margin-bottom: 10px;
+              "
+            />
+            <button class="btn" style="width: 100%; border-radius: 5px">
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="copyright">
+        <p>&copy; 2023 Sunset Hostel. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const navLinks = document.getElementById("navLinks");
+
+      mobileMenuBtn.addEventListener("click", function () {
+        navLinks.classList.toggle("active");
+        if (navLinks.classList.contains("active")) {
+          mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+        } else {
+          mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+      });
+
+      const navLinksAll = document.querySelectorAll(".nav-links a");
+      for (let i = 0; i < navLinksAll.length; i++) {
+        navLinksAll[i].addEventListener("click", function () {
+          if (navLinks.classList.contains("active")) {
+            navLinks.classList.remove("active");
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+          }
+        });
+      }
+
+      window.addEventListener("scroll", function () {
+        const header = document.querySelector(".nav-container");
+        if (window.scrollY > 100) {
+          header.style.background = "rgba(44, 62, 80, 0.95)";
+          header.style.backdropFilter = "blur(10px)";
+        } else {
+          header.style.background = "#34495e";
+          header.style.backdropFilter = "none";
+        }
+
+        const elements = document.querySelectorAll(
+          ".rules-banner, .rule-card, .important-box, .warning-box, .hours-table, .policy-card"
+        );
+        for (let i = 0; i < elements.length; i++) {
+          const element = elements[i];
+          const position = element.getBoundingClientRect();
+
+          if (position.top < window.innerHeight - 100) {
+            element.classList.add("visible");
+          }
+        }
+      });
+
+      const ruleCards = document.querySelectorAll(".rule-card");
+      for (let i = 0; i < ruleCards.length; i++) {
+        ruleCards[i].style.transitionDelay = i * 0.1 + "s";
+
+        ruleCards[i].addEventListener("mouseenter", function () {
+          const icon = this.querySelector(".rule-icon");
+          icon.style.transform = "rotate(15deg) scale(1.2)";
+          icon.style.transition = "transform 0.3s";
+
+          const number = this.querySelector(".rule-number");
+          number.style.transform = "scale(1.2)";
+          number.style.transition = "transform 0.3s";
+        });
+
+        ruleCards[i].addEventListener("mouseleave", function () {
+          const icon = this.querySelector(".rule-icon");
+          icon.style.transform = "rotate(0) scale(1)";
+
+          const number = this.querySelector(".rule-number");
+          number.style.transform = "scale(1)";
+        });
+      }
+
+      const checklistItems = document.querySelectorAll(".checklist li");
+      for (let i = 0; i < checklistItems.length; i++) {
+        checklistItems[i].style.transitionDelay = i * 0.1 + "s";
+
+        checklistItems[i].addEventListener("mouseenter", function () {
+          this.style.transform = "translateX(10px)";
+          this.style.backgroundColor = "#f8f9fa";
+        });
+
+        checklistItems[i].addEventListener("mouseleave", function () {
+          this.style.transform = "translateX(0)";
+          this.style.backgroundColor = "transparent";
+        });
+      }
+
+      const tableRows = document.querySelectorAll(".hours-table tr");
+      for (let i = 0; i < tableRows.length; i++) {
+        tableRows[i].addEventListener("mouseenter", function () {
+          this.style.transform = "scale(1.01)";
+        });
+
+        tableRows[i].addEventListener("mouseleave", function () {
+          this.style.transform = "scale(1)";
+        });
+      }
+
+      const policyCards = document.querySelectorAll(".policy-card");
+      for (let i = 0; i < policyCards.length; i++) {
+        policyCards[i].style.transitionDelay = i * 0.1 + "s";
+
+        policyCards[i].addEventListener("mouseenter", function () {
+          const icon = this.querySelector(".policy-icon");
+          icon.style.transform = "scale(1.2)";
+          icon.style.transition = "transform 0.3s";
+        });
+
+        policyCards[i].addEventListener("mouseleave", function () {
+          const icon = this.querySelector(".policy-icon");
+          icon.style.transform = "scale(1)";
+        });
+      }
+
+      const currentYear = new Date().getFullYear();
+      const copyright = document.querySelector(".copyright p");
+      copyright.textContent =
+        "© 2023-" + currentYear + " Sunset Hostel. All rights reserved.";
+
+      const subscribeBtn = document.querySelector(".footer-column .btn");
+      subscribeBtn.addEventListener("click", function () {
+        const emailInput = document.querySelector(
+          '.footer-column input[type="email"]'
+        );
+        if (emailInput.value.includes("@")) {
+          emailInput.style.border = "2px solid #27ae60";
+          emailInput.style.backgroundColor = "#e8f8f5";
+          setTimeout(function () {
+            emailInput.style.border = "none";
+            emailInput.style.backgroundColor = "";
+            emailInput.value = "";
+          }, 2000);
+        } else {
+          emailInput.style.border = "2px solid #e74c3c";
+          emailInput.style.backgroundColor = "#fde8e8";
+          setTimeout(function () {
+            emailInput.style.border = "none";
+            emailInput.style.backgroundColor = "";
+          }, 2000);
+        }
+      });
+
+      const socialIcons = document.querySelectorAll(".social-icons a");
+      for (let i = 0; i < socialIcons.length; i++) {
+        socialIcons[i].addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-5px) rotate(5deg)";
+        });
+
+        socialIcons[i].addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0) rotate(0)";
+        });
+      }
+
+      const warningIcons = document.querySelectorAll(
+        ".warning-box i, .important-box i"
+      );
+      for (let i = 0; i < warningIcons.length; i++) {
+        warningIcons[i].addEventListener("mouseenter", function () {
+          this.style.transform = "rotate(20deg)";
+          this.style.transition = "transform 0.3s";
+        });
+
+        warningIcons[i].addEventListener("mouseleave", function () {
+          this.style.transform = "rotate(0)";
+        });
+      }
+
+      window.addEventListener("load", function () {
+        const banner = document.querySelector(".rules-banner");
+        banner.style.opacity = "0";
+        banner.style.transform = "translateY(20px)";
+
+        setTimeout(function () {
+          banner.style.transition = "all 1s ease";
+          banner.style.opacity = "1";
+          banner.style.transform = "translateY(0)";
+        }, 300);
+      });
+
+      const agreeBtn = document.querySelector(".section .btn");
+      agreeBtn.addEventListener("click", function () {
+        this.innerHTML =
+          '<i class="fas fa-check"></i> Redirecting to Booking...';
+        this.style.background = "#27ae60";
+
+        setTimeout(function () {
+          window.location.href = "booking.html";
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>

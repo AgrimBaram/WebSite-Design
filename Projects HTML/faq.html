@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunset Hostel - FAQ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background: #f5f5f5;
+            color: #333;
+        }
+        
+        .top-header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        .top-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .top-header p {
+            font-size: 18px;
+            color: #f39c12;
+        }
+        
+        .nav-container {
+            background: #34495e;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .main-nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: #f39c12;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 20px 15px;
+            display: block;
+            transition: all 0.3s;
+            font-size: 15px;
+        }
+        
+        .nav-links a:hover {
+            background: #2c3e50;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+        
+        .section {
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: #2c3e50;
+            display: inline-block;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #f39c12;
+        }
+        
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto 50px;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 18px 20px;
+            padding-left: 60px;
+            border: 2px solid #ddd;
+            border-radius: 50px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #95a5a6;
+            font-size: 20px;
+        }
+        
+        .faq-categories {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 12px 25px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .category-btn:hover,
+        .category-btn.active {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+        
+        .faq-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .faq-question {
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+        }
+        
+        .faq-question h4 {
+            font-size: 18px;
+            color: #2c3e50;
+        }
+        
+        .faq-icon {
+            color: #3498db;
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .faq-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .faq-answer p {
+            padding: 25px 0;
+            border-top: 1px solid #eee;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+        
+        .contact-banner {
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            padding: 60px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            margin: 80px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+        
+        .contact-banner.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .contact-banner h3 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .contact-banner p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+        
+        .faq-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .stat-box {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+        
+        .stat-box.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .stat-icon {
+            font-size: 48px;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            color: #f39c12;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #f39c12;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #f39c12;
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: #34495e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: #f39c12;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+        }
+        
+        @media (max-width: 1024px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: #2c3e50;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s;
+                z-index: 99;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                padding: 15px;
+                width: 100%;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .top-header h1 {
+                font-size: 28px;
+            }
+            
+            .section-title h2 {
+                font-size: 28px;
+            }
+            
+            .faq-question {
+                padding: 20px;
+            }
+            
+            .faq-answer {
+                padding: 0 20px;
+            }
+            
+            .contact-banner {
+                padding: 40px 20px;
+            }
+            
+            .contact-banner h3 {
+                font-size: 28px;
+            }
+            
+            .faq-categories {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .category-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .faq-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .faq-helpful {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .helpful-btn {
+            padding: 8px 15px;
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .helpful-btn:hover {
+            background: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+        
+        .answer-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .answer-content li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .answer-content strong {
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <header class="top-header">
+        <h1>Sunset Hostel</h1>
+        <p>Frequently Asked Questions</p>
+    </header>
+    
+    <nav class="nav-container">
+        <div class="main-nav">
+            <div class="logo">Sunset<span>Hostel</span></div>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="rooms.html"><i class="fas fa-bed"></i> Rooms</a></li>
+                <li><a href="facilities.html"><i class="fas fa-swimming-pool"></i> Facilities</a></li>
+                <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                <li><a href="pricing.html"><i class="fas fa-tag"></i> Pricing</a></li>
+                <li><a href="location.html"><i class="fas fa-map-marker-alt"></i> Location</a></li>
+                <li><a href="rules.html"><i class="fas fa-clipboard-list"></i> Rules</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="booking.html"><i class="fas fa-calendar-check"></i> Booking</a></li>
+                <li><a href="reviews.html"><i class="fas fa-star"></i> Reviews</a></li>
+                <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+            </ul>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <section class="section">
+            <div class="section-title">
+                <h2>How Can We Help You?</h2>
+            </div>
+            
+            <div class="search-box">
+                <div class="search-icon">
+                    <i class="fas fa-search"></i>
+                </div>
+                <input type="text" class="search-input" id="searchInput" placeholder="Search for answers...">
+            </div>
+            
+            <div class="faq-stats">
+                <div class="stat-box">
+                    <div class="stat-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="stat-number" id="faqCount">0</div>
+                    <p>Questions Answered</p>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-number" id="helpCount">0</div>
+                    <p>Visitors Helped</p>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-number">98%</div>
+                    <p>Satisfaction Rate</p>
+                </div>
+                
+                <div class="stat-box">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-number">24/7</div>
+                    <p>Support Available</p>
+                </div>
+            </div>
+            
+            <div class="faq-categories">
+                <button class="category-btn active" data-category="all">
+                    <i class="fas fa-th"></i> All Questions
+                </button>
+                <button class="category-btn" data-category="booking">
+                    <i class="fas fa-calendar-check"></i> Booking
+                </button>
+                <button class="category-btn" data-category="rooms">
+                    <i class="fas fa-bed"></i> Rooms
+                </button>
+                <button class="category-btn" data-category="facilities">
+                    <i class="fas fa-swimming-pool"></i> Facilities
+                </button>
+                <button class="category-btn" data-category="policies">
+                    <i class="fas fa-clipboard-list"></i> Policies
+                </button>
+                <button class="category-btn" data-category="location">
+                    <i class="fas fa-map-marker-alt"></i> Location
+                </button>
+            </div>
+            
+            <div class="no-results" id="noResults">
+                <i class="fas fa-search" style="font-size: 48px; color: #95a5a6; margin-bottom: 20px;"></i>
+                <h3>No results found</h3>
+                <p>Try different keywords or browse the categories</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item" data-category="booking">
+                    <div class="faq-question">
+                        <h4>What are your check-in and check-out times?</h4>
+                        <div class="faq-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="answer-content">
+                            <p><strong>Check-in time:</strong> 2:00 PM - 11:00 PM</p>
+                            <p><strong>Check-out time:</strong> 7:00 AM - 11:00 AM</p>
+                            <p>Early check-in and late check-out may be available upon request and are subject to availability. Additional charges may apply for late check-out after 11:00 AM.</p>
+                        </div>
+                        <div class="faq-helpful">
+                            <span>Was this helpful?</span>
+                            <button class="helpful-btn">Yes (42)</button>
+                            <button class="helpful-btn">No (2)</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="booking">
+                    <div class="faq-question">
+                        <h4>How can I make a reservation?</h4>
+                        <div class="faq-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="answer-content">
+                            <p>You can make a reservation through several methods:</p>
+                            <ul>
+                                <li><strong>Online:</strong> Use our secure booking system on our website</li>
+                                <li><strong>Phone:</strong> Call our reservations team at +1 (234) 567-8901</li>
+                                <li><strong>Email:</strong> Send your request to reservations@sunsethostel.com</li>
+                                <li><strong>In person:</strong> Visit our reception (24/7)</li>
+                            </ul>
+                            <p>We recommend booking in advance, especially during peak seasons.</p>
+                        </div>
+                        <div class="faq-helpful">
+                            <span>Was this helpful?</span>
+                            <button class="helpful-btn">Yes (38)</button>
+                            <button class="helpful-btn">No (1)</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="rooms">
+                    <div class="faq-question">
+                        <h4>What types of rooms do you offer?</h4>
+                        <div class="faq-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="answer-content">
+                            <p>We offer four types of accommodations:</p>
+                            <ul>
+                                <li><strong>6-Bed Dormitory:</strong> Perfect for budget travelers ($25/night)</li>
+                                <li><strong>4-Bed Dormitory:</strong> Less crowded option ($30/night)</li>
+                                <li><strong>Private Single Room:</strong> With private bathroom ($50/night)</li>
+                                <li><strong>Private Double Room:</strong> For couples or friends ($70/night)</li>
+                            </ul>
+                            <p>All rooms include free WiFi, lockers, and linens. Private rooms also include towels and toiletries.</p>
+                        </div>
+                        <div class="faq-helpful">
+                            <span>Was this helpful?</span>
+                            <button class="helpful-btn">Yes (45)</button>
+                            <button class="helpful-btn">No (3)</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="facilities">
+                    <div class="faq-question">
+                        <h4>What facilities are available at the hostel?</h4>
+                        <div class="faq-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="answer-content">
+                            <p>Our facilities include:</p>
+                            <ul>
+                                <li><strong>Common Areas:</strong> Lounge, TV room, study room</li>
+                                <li><strong>Kitchen:</strong> Fully equipped with appliances and utensils</li>
+                                <li><strong>Laundry:</strong> Self-service washers and dryers (coin-operated)</li>
+                                <li><strong>Bathrooms:</strong> Clean, shared facilities with private showers</li>
+                                <li><strong>Outdoor:</strong> Terrace and garden area</li>
+                                <li><strong>Services:</strong> 24/7 reception, luggage storage, tour desk</li>
+                                <li><strong>Amenities:</strong> Free high-speed WiFi throughout</li>
+                            </ul>
+                        </div>
+                        <div class="faq-helpful">
+                            <span>Was this helpful?</span>
+                            <button class="helpful-btn">Yes (52)</button>
+                            <button class="helpful-btn">No (1)</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="policies">
+                    <div class="faq-question">
+                        <h4>What is your cancellation policy?</h4>
+                        <div class="faq-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="answer-content">
+                            <p>Our cancellation policy varies based on the rate plan:</p>
+                            <ul>
+                                <li><strong>Flexible Rate:</strong> Free cancellation up to 24 hours before check-in</li>
+                                <li><strong>Standard Rate:</strong> Free cancellation up to 48 hours before check-in</li>
+                                <li><strong>Non-refundable Rate:</strong> No cancellation or changes allowed</li>
+                            </ul>
+                            <p>No-shows and early departures are charged the full amount. Please check your booking confirmation for specific cancellation terms.</p>
+                        </div>
+                        <div class="faq-helpful">
+                            <span>Was this helpful?</span>
+                            <button class="helpful-btn">Yes (41)</button>
+                            <button class="helpful-btn">No (2)</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="location">
+                    <div class="faq-question">
+                        <h4>How do I get to Sunset Hostel from the airport?</h4>
+                        <div class="faq-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="answer-content">
+                            <p>There are several options to reach us from the airport:</p>
+                            <ul>
+                                <li><strong>Airport Shuttle:</strong> We offer airport transfer service for $25 (book in advance)</li>
+                                <li><strong>Taxi:</strong> Approximately $40-50, 30-40 minutes</li>
+                                <li><strong>Public Transport:</strong> Take the airport express bus to downtown, then metro line 2 to Central Station (total $8, 60 minutes)</li>
+                                <li><strong>Ride-share:</strong> Uber/Lyft available for $35-45</li>
+                            </ul>
+                            <p>Our address: 123 Sunset Boulevard, Central District, City 12345</p>
+                        </div>
+                        <div class="faq-helpful">
+                            <span>Was this helpful?</span>
+                            <button class="helpful-btn">Yes (37)</button>
+                            <button class="helpful-btn">No (1)</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="facilities">
+                    <div class="faq-question">
+                        <h4>Is WiFi available throughout the hostel?</h4>
+                        <div class="faq-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="answer-content">
+                            <p>Yes! We offer free high-speed WiFi throughout the entire hostel, including:</p>
+                            <ul>
+                                <li>All guest rooms (dormitories and private rooms)</li>
+                                <li>Common areas (lounge, TV room, study room)</li>
+                                <li>Kitchen and dining area</li>
+                                <li>Outdoor terrace</li>
+                                <li>Reception area</li>
+                            </ul>
+                            <p>The WiFi speed is optimized for work and streaming. Login details are provided at check-in.</p>
+                        </div>
+                        <div class="faq-helpful">
+                            <span>Was this helpful?</span>
+                            <button class="helpful-btn">Yes (48)</button>
+                            <button class="helpful-btn">No (2)</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="policies">
+                    <div class="faq-question">
+                        <h4>What is your age policy?</h4>
+                        <div class="faq-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="answer-content">
+                            <p>Our age policy is as follows:</p>
+                            <ul>
+                                <li><strong>Minimum age:</strong> 18 years old to check-in without adult supervision</li>
+                                <li><strong>Youth (16-17):</strong> Must be accompanied by an adult or provide written parental consent</li>
+                                <li><strong>Children (under 16):</strong> Must be accompanied by an adult at all times</li>
+                                <li><strong>Family rooms:</strong> Available upon request for families with children</li>
+                            </ul>
+                            <p>Age verification may be requested at check-in. Please contact us in advance if you have specific requirements.</p>
+                        </div>
+                        <div class="faq-helpful">
+                            <span>Was this helpful?</span>
+                            <button class="helpful-btn">Yes (29)</button>
+                            <button class="helpful-btn">No (3)</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="rooms">
+                    <div class="faq-question">
+                        <h4>Are linens and towels provided?</h4>
+                        <div class="faq-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="answer-content">
+                            <p>Yes, we provide the following:</p>
+                            <ul>
+                                <li><strong>All guests:</strong> Fresh linens (sheets, pillow, blanket) are provided for all beds</li>
+                                <li><strong>Dormitory guests:</strong> Towels are available for rent at $2 per stay</li>
+                                <li><strong>Private room guests:</strong> Towels and basic toiletries are provided free of charge</li>
+                                <li><strong>Additional:</strong> Extra blankets and pillows available upon request</li>
+                            </ul>
+                            <p>All linens are professionally cleaned between guests. Lockers are available for storing personal items.</p>
+                        </div>
+                        <div class="faq-helpful">
+                            <span>Was this helpful?</span>
+                            <button class="helpful-btn">Yes (44)</button>
+                            <button class="helpful-btn">No (1)</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item" data-category="facilities">
+                    <div class="faq-question">
+                        <h4>Do you have laundry facilities?</h4>
+                        <div class="faq-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="answer-content">
+                            <p>Yes, we have self-service laundry facilities available 24/7:</p>
+                            <ul>
+                                <li><strong>Washing machines:</strong> $3 per load (includes detergent)</li>
+                                <li><strong>Dryers:</strong> $2 per load (45 minutes)</li>
+                                <li><strong>Ironing:</strong> Free iron and ironing board available</li>
+                                <li><strong>Change machine:</strong> Available at reception for coins</li>
+                            </ul>
+                            <p>Laundry soap is provided. The laundry room is located on the ground floor next to the kitchen.</p>
+                        </div>
+                        <div class="faq-helpful">
+                            <span>Was this helpful?</span>
+                            <button class="helpful-btn">Yes (36)</button>
+                            <button class="helpful-btn">No (2)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="contact-banner">
+            <h3>Still Have Questions?</h3>
+            <p>Can't find what you're looking for? Our team is here to help you 24/7.</p>
+            <a href="contact.html" class="btn" style="background: white; color: #2c3e50; margin-right: 20px;">Contact Us</a>
+            <a href="" class="btn" style="background: transparent; border: 2px solid white;">Call Now</a>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Sunset Hostel</h3>
+                <p>Providing exceptional budget accommodation since 2010. Experience comfort, community, and value at our premium hostel.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="rooms.html">Rooms & Rates</a></li>
+                    <li><a href="facilities.html">Facilities</a></li>
+                    <li><a href="gallery.html">Photo Gallery</a></li>
+                    <li><a href="booking.html">Online Booking</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Information</h3>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="location.html">Location & Map</a></li>
+                    <li><a href="rules.html">House Rules</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe for exclusive offers and travel tips</p>
+                <div style="margin-top: 20px;">
+                    <input type="email" placeholder="Your email" style="width: 100%; padding: 12px; border: none; border-radius: 5px; margin-bottom: 10px;">
+                    <button class="btn" style="width: 100%; padding: 12px;">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Sunset Hostel. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            if (navLinks.classList.contains('active')) {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        const navLinksAll = document.querySelectorAll('.nav-links a');
+        for (let i = 0; i < navLinksAll.length; i++) {
+            navLinksAll[i].addEventListener('click', function() {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.nav-container');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(44, 62, 80, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = '#34495e';
+                header.style.backdropFilter = 'none';
+            }
+            
+            const elements = document.querySelectorAll('.faq-item, .stat-box, .contact-banner');
+            for (let i = 0; i < elements.length; i++) {
+                const element = elements[i];
+                const position = element.getBoundingClientRect();
+                
+                if (position.top < window.innerHeight - 100) {
+                    element.classList.add('visible');
+                }
+            }
+        });
+        
+        const faqItems = document.querySelectorAll('.faq-item');
+        for (let i = 0; i < faqItems.length; i++) {
+            const faqItem = faqItems[i];
+            const faqQuestion = faqItem.querySelector('.faq-question');
+            
+            faqQuestion.addEventListener('click', function() {
+                for (let j = 0; j < faqItems.length; j++) {
+                    if (faqItems[j] !== faqItem) {
+                        faqItems[j].classList.remove('active');
+                    }
+                }
+                faqItem.classList.toggle('active');
+            });
+            
+            faqItem.style.transitionDelay = (i * 0.1) + 's';
+        }
+        
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        for (let i = 0; i < categoryButtons.length; i++) {
+            categoryButtons[i].addEventListener('click', function() {
+                for (let j = 0; j < categoryButtons.length; j++) {
+                    categoryButtons[j].classList.remove('active');
+                }
+                this.classList.add('active');
+                
+                const category = this.getAttribute('data-category');
+                filterFAQs(category);
+            });
+        }
+        
+        function filterFAQs(category) {
+            const noResults = document.getElementById('noResults');
+            let visibleCount = 0;
+            
+            for (let i = 0; i < faqItems.length; i++) {
+                const faqItem = faqItems[i];
+                const itemCategory = faqItem.getAttribute('data-category');
+                
+                if (category === 'all' || category === itemCategory) {
+                    faqItem.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    faqItem.style.display = 'none';
+                }
+            }
+            
+            if (visibleCount === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        }
+        
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const noResults = document.getElementById('noResults');
+            let visibleCount = 0;
+            
+            for (let i = 0; i < faqItems.length; i++) {
+                const faqItem = faqItems[i];
+                const question = faqItem.querySelector('.faq-question h4').textContent.toLowerCase();
+                const answer = faqItem.querySelector('.faq-answer .answer-content').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    faqItem.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    faqItem.style.display = 'none';
+                }
+            }
+            
+            if (visibleCount === 0 && searchTerm !== '') {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        });
+        
+        const helpfulButtons = document.querySelectorAll('.helpful-btn');
+        for (let i = 0; i < helpfulButtons.length; i++) {
+            helpfulButtons[i].addEventListener('click', function() {
+                const text = this.textContent;
+                const count = parseInt(text.match(/\d+/)[0]);
+                this.textContent = text.replace(/\d+/, count + 1);
+                this.style.backgroundColor = '#3498db';
+                this.style.color = 'white';
+                this.style.borderColor = '#3498db';
+                this.disabled = true;
+            });
+        }
+        
+        const faqCount = document.getElementById('faqCount');
+        const helpCount = document.getElementById('helpCount');
+        
+        let currentFaqCount = 0;
+        let currentHelpCount = 0;
+        
+        function animateCounter(element, target, prefix = '') {
+            let current = 0;
+            const increment = target / 50;
+            
+            function update() {
+                current += increment;
+                if (current < target) {
+                    element.textContent = prefix + Math.ceil(current);
+                    setTimeout(update, 20);
+                } else {
+                    element.textContent = prefix + target;
+                }
+            }
+            update();
+        }
+        
+        setTimeout(function() {
+            animateCounter(faqCount, 10);
+            animateCounter(helpCount, 382);
+        }, 1000);
+        
+        const subscribeBtn = document.querySelector('.footer-column .btn');
+        subscribeBtn.addEventListener('click', function() {
+            const emailInput = document.querySelector('.footer-column input[type="email"]');
+            if (emailInput.value.includes('@')) {
+                emailInput.style.border = '2px solid #27ae60';
+                emailInput.style.backgroundColor = '#e8f8f5';
+                setTimeout(function() {
+                    emailInput.style.border = 'none';
+                    emailInput.style.backgroundColor = '';
+                    emailInput.value = '';
+                }, 2000);
+            } else {
+                emailInput.style.border = '2px solid #e74c3c';
+                emailInput.style.backgroundColor = '#fde8e8';
+                setTimeout(function() {
+                    emailInput.style.border = 'none';
+                    emailInput.style.backgroundColor = '';
+                }, 2000);
+            }
+        });
+        
+        const socialIcons = document.querySelectorAll('.social-icons a');
+        for (let i = 0; i < socialIcons.length; i++) {
+            socialIcons[i].addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) rotate(5deg)';
+            });
+            
+            socialIcons[i].addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotate(0)';
+            });
+        }
+        
+        const currentYear = new Date().getFullYear();
+        const copyright = document.querySelector('.copyright p');
+        copyright.textContent = '© 2023-' + currentYear + ' Sunset Hostel. All rights reserved.';
+        
+        window.addEventListener('load', function() {
+            const statBoxes = document.querySelectorAll('.stat-box');
+            for (let i = 0; i < statBoxes.length; i++) {
+                statBoxes[i].style.transitionDelay = (i * 0.2) + 's';
+            }
+            
+            const contactBanner = document.querySelector('.contact-banner');
+            setTimeout(function() {
+                contactBanner.classList.add('visible');
+            }, 1000);
+        });
+        
+        const searchIcon = document.querySelector('.search-icon');
+        searchIcon.addEventListener('click', function() {
+            searchInput.focus();
+        });
+        
+        searchInput.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'scale(1.02)';
+        });
+        
+        searchInput.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'scale(1)';
+        });
+        
+        const categoryIcons = document.querySelectorAll('.category-btn i');
+        for (let i = 0; i < categoryIcons.length; i++) {
+            categoryIcons[i].addEventListener('mouseenter', function() {
+                this.style.transform = 'rotate(15deg)';
+            });
+            
+            categoryIcons[i].addEventListener('mouseleave', function() {
+                this.style.transform = 'rotate(0)';
+            });
+        }
+    </script>
+</body>
+</html> 

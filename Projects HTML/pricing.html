@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunset Hostel - Pricing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background: #f5f5f5;
+            color: #333;
+        }
+        
+        .top-header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        .top-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .top-header p {
+            font-size: 18px;
+            color: #f39c12;
+        }
+        
+        .nav-container {
+            background: #34495e;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .main-nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: #f39c12;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 20px 15px;
+            display: block;
+            transition: all 0.3s;
+            font-size: 15px;
+        }
+        
+        .nav-links a:hover {
+            background: #2c3e50;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+        
+        .section {
+            margin-bottom: 100px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: #2c3e50;
+            display: inline-block;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #f39c12;
+        }
+        
+        .pricing-tables {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .pricing-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .pricing-header {
+            background: #3498db;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .pricing-card.featured .pricing-header {
+            background: #e74c3c;
+        }
+        
+        .pricing-card.popular::before {
+            content: "MOST POPULAR";
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: #f39c12;
+            color: white;
+            padding: 8px 40px;
+            transform: rotate(45deg);
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 1;
+        }
+        
+        .room-type {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .price {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .price span {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .pricing-features {
+            padding: 40px 30px;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-list i {
+            color: #2ecc71;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+        
+        .feature-list .not-included {
+            color: #e74c3c;
+        }
+        
+        .pricing-btn {
+            display: block;
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .pricing-btn:hover {
+            background: #3498db;
+        }
+        
+        .featured .pricing-btn {
+            background: #e74c3c;
+        }
+        
+        .featured .pricing-btn:hover {
+            background: #c0392b;
+        }
+        
+        .seasonal-rates {
+            background: white;
+            border-radius: 15px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-top: 80px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+        
+        .seasonal-rates.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .rate-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+        
+        .rate-table th {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            text-align: left;
+        }
+        
+        .rate-table td {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .rate-table tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .high-season {
+            background: #fff3cd;
+            color: #856404;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .low-season {
+            background: #d4edda;
+            color: #155724;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .discount-banner {
+            background: linear-gradient(135deg, #2ecc71, #3498db);
+            padding: 60px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            margin: 80px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+        
+        .discount-banner.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .discount-banner h3 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .offer-boxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .offer-box {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .offer-box.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .offer-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .offer-icon {
+            font-size: 48px;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #f39c12;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #f39c12;
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: #34495e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: #f39c12;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+        }
+        
+        @media (max-width: 1024px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: #2c3e50;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s;
+                z-index: 99;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                padding: 15px;
+                width: 100%;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .pricing-tables {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 50px auto 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .section-title h2 {
+                font-size: 28px;
+            }
+            
+            .price {
+                font-size: 36px;
+            }
+            
+            .seasonal-rates {
+                padding: 30px 20px;
+            }
+            
+            .rate-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .discount-banner {
+                padding: 40px 20px;
+            }
+            
+            .discount-banner h3 {
+                font-size: 28px;
+            }
+            
+            .offer-boxes {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .info-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-top: 50px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+        
+        .info-box.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .info-box i {
+            font-size: 40px;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="top-header">
+        <h1>Sunset Hostel</h1>
+        <p>Transparent Pricing & Best Value</p>
+    </header>
+    
+    <nav class="nav-container">
+        <div class="main-nav">
+            <div class="logo">Sunset<span>Hostel</span></div>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="rooms.html"><i class="fas fa-bed"></i> Rooms</a></li>
+                <li><a href="facilities.html"><i class="fas fa-swimming-pool"></i> Facilities</a></li>
+                <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                <li><a href="pricing.html" class="active"><i class="fas fa-tag"></i> Pricing</a></li>
+                <li><a href="location.html"><i class="fas fa-map-marker-alt"></i> Location</a></li>
+                <li><a href="rules.html"><i class="fas fa-clipboard-list"></i> Rules</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="booking.html"><i class="fas fa-calendar-check"></i> Booking</a></li>
+                <li><a href="reviews.html"><i class="fas fa-star"></i> Reviews</a></li>
+                <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+            </ul>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <section class="section">
+            <div class="section-title">
+                <h2>Our Room Rates</h2>
+                <p style="max-width: 800px; margin: 20px auto 0; color: #666; font-size: 18px;">Transparent pricing with no hidden fees. All rates include free WiFi, security lockers, and access to all common areas.</p>
+            </div>
+            
+            <div class="pricing-tables">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 class="room-type">6-Bed Dormitory</h3>
+                        <div class="price">$25<span>/night</span></div>
+                        <p>Perfect for solo travelers & groups</p>
+                    </div>
+                    <div class="pricing-features">
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Mixed/Female Only Options</li>
+                            <li><i class="fas fa-check"></i> Personal Reading Light</li>
+                            <li><i class="fas fa-check"></i> Security Locker</li>
+                            <li><i class="fas fa-check"></i> USB Charging Port</li>
+                            <li><i class="fas fa-check"></i> Free Bed Linens</li>
+                            <li><i class="fas fa-times not-included"></i> Private Bathroom</li>
+                            <li><i class="fas fa-times not-included"></i> Daily Cleaning</li>
+                        </ul>
+                    </div>
+                    <a href="booking.html" class="pricing-btn">Book This Room</a>
+                </div>
+                
+                <div class="pricing-card featured popular">
+                    <div class="pricing-header">
+                        <h3 class="room-type">4-Bed Dormitory</h3>
+                        <div class="price">$30<span>/night</span></div>
+                        <p>Our Most Popular Choice</p>
+                    </div>
+                    <div class="pricing-features">
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Mixed/Female Only Options</li>
+                            <li><i class="fas fa-check"></i> Personal Reading Light</li>
+                            <li><i class="fas fa-check"></i> Security Locker</li>
+                            <li><i class="fas fa-check"></i> USB Charging Port</li>
+                            <li><i class="fas fa-check"></i> Free Bed Linens</li>
+                            <li><i class="fas fa-check"></i> Extra Storage Space</li>
+                            <li><i class="fas fa-times not-included"></i> Private Bathroom</li>
+                        </ul>
+                    </div>
+                    <a href="booking.html" class="pricing-btn">Book This Room</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 class="room-type">Private Single</h3>
+                        <div class="price">$50<span>/night</span></div>
+                        <p>Comfort & Privacy Combined</p>
+                    </div>
+                    <div class="pricing-features">
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Private Room</li>
+                            <li><i class="fas fa-check"></i> Queen Size Bed</li>
+                            <li><i class="fas fa-check"></i> Personal Workspace</li>
+                            <li><i class="fas fa-check"></i> Private Bathroom</li>
+                            <li><i class="fas fa-check"></i> Daily Room Service</li>
+                            <li><i class="fas fa-check"></i> Air Conditioning</li>
+                            <li><i class="fas fa-check"></i> Flat Screen TV</li>
+                        </ul>
+                    </div>
+                    <a href="booking.html" class="pricing-btn">Book This Room</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3 class="room-type">Private Double</h3>
+                        <div class="price">$70<span>/night</span></div>
+                        <p>Perfect for Couples & Friends</p>
+                    </div>
+                    <div class="pricing-features">
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check"></i> Private Room</li>
+                            <li><i class="fas fa-check"></i> Two Single Beds</li>
+                            <li><i class="fas fa-check"></i> Personal Workspace</li>
+                            <li><i class="fas fa-check"></i> Private Bathroom</li>
+                            <li><i class="fas fa-check"></i> Daily Room Service</li>
+                            <li><i class="fas fa-check"></i> Air Conditioning</li>
+                            <li><i class="fas fa-check"></i> Flat Screen TV</li>
+                        </ul>
+                    </div>
+                    <a href="booking.html" class="pricing-btn">Book This Room</a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="section-title">
+                <h2>Seasonal Rates</h2>
+            </div>
+            
+            <div class="seasonal-rates">
+                <h3 style="text-align: center; margin-bottom: 30px; color: #2c3e50;">2024 Rate Calendar</h3>
+                <table class="rate-table">
+                    <thead>
+                        <tr>
+                            <th>Season</th>
+                            <th>Dates</th>
+                            <th>6-Bed Dorm</th>
+                            <th>4-Bed Dorm</th>
+                            <th>Private Single</th>
+                            <th>Private Double</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="low-season">Low Season</span></td>
+                            <td>Jan 8 - Mar 31</td>
+                            <td>$22</td>
+                            <td>$27</td>
+                            <td>$45</td>
+                            <td>$65</td>
+                        </tr>
+                        <tr>
+                            <td><span class="high-season">High Season</span></td>
+                            <td>Apr 1 - Jun 30</td>
+                            <td>$25</td>
+                            <td>$30</td>
+                            <td>$50</td>
+                            <td>$70</td>
+                        </tr>
+                        <tr>
+                            <td><span class="high-season">Peak Season</span></td>
+                            <td>Jul 1 - Aug 31</td>
+                            <td>$28</td>
+                            <td>$33</td>
+                            <td>$55</td>
+                            <td>$75</td>
+                        </tr>
+                        <tr>
+                            <td><span class="high-season">High Season</span></td>
+                            <td>Sep 1 - Nov 30</td>
+                            <td>$25</td>
+                            <td>$30</td>
+                            <td>$50</td>
+                            <td>$70</td>
+                        </tr>
+                        <tr>
+                            <td><span class="low-season">Low Season</span></td>
+                            <td>Dec 1 - Dec 20</td>
+                            <td>$22</td>
+                            <td>$27</td>
+                            <td>$45</td>
+                            <td>$65</td>
+                        </tr>
+                        <tr>
+                            <td><span class="high-season">Holiday Season</span></td>
+                            <td>Dec 21 - Jan 7</td>
+                            <td>$30</td>
+                            <td>$35</td>
+                            <td>$60</td>
+                            <td>$80</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <div class="discount-banner">
+            <h3>Special Discounts & Offers</h3>
+            <p style="max-width: 600px; margin: 0 auto 40px; font-size: 18px;">We offer various discounts to make your stay more affordable. Book directly through our website for the best rates!</p>
+            
+            <div class="offer-boxes">
+                <div class="offer-box">
+                    <i class="fas fa-users offer-icon"></i>
+                    <h3>Group Discount</h3>
+                    <p style="font-size: 48px; color: #e74c3c; font-weight: bold; margin: 15px 0;">15% OFF</p>
+                    <p>For groups of 6 or more people</p>
+                </div>
+                
+                <div class="offer-box">
+                    <i class="fas fa-moon offer-icon"></i>
+                    <h3>Long Stay</h3>
+                    <p style="font-size: 48px; color: #e74c3c; font-weight: bold; margin: 15px 0;">20% OFF</p>
+                    <p>For stays of 7 nights or more</p>
+                </div>
+                
+                <div class="offer-box">
+                    <i class="fas fa-graduation-cap offer-icon"></i>
+                    <h3>Student Discount</h3>
+                    <p style="font-size: 48px; color: #e74c3c; font-weight: bold; margin: 15px 0;">10% OFF</p>
+                    <p>Valid student ID required</p>
+                </div>
+            </div>
+        </div>
+        
+        <section class="section">
+            <div class="section-title">
+                <h2>Additional Services</h2>
+            </div>
+            
+            <div class="offer-boxes">
+                <div class="offer-box">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Breakfast Buffet</h3>
+                    <p style="font-size: 24px; color: #2c3e50; font-weight: bold; margin: 15px 0;">$8/day</p>
+                    <p>Fresh continental breakfast with local specialties</p>
+                </div>
+                
+                <div class="offer-box">
+                    <i class="fas fa-towel"></i>
+                    <h3>Towel Rental</h3>
+                    <p style="font-size: 24px; color: #2c3e50; font-weight: bold; margin: 15px 0;">$3/day</p>
+                    <p>Large bath towel (free with private rooms)</p>
+                </div>
+                
+                <div class="offer-box">
+                    <i class="fas fa-luggage-cart"></i>
+                    <h3>Luggage Storage</h3>
+                    <p style="font-size: 24px; color: #2c3e50; font-weight: bold; margin: 15px 0;">$5/day</p>
+                    <p>Secure storage before check-in or after check-out</p>
+                </div>
+                
+                <div class="offer-box">
+                    <i class="fas fa-bicycle"></i>
+                    <h3>Bike Rental</h3>
+                    <p style="font-size: 24px; color: #2c3e50; font-weight: bold; margin: 15px 0;">$12/day</p>
+                    <p>Explore the city on two wheels</p>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <i class="fas fa-info-circle"></i>
+                <h3>Important Information</h3>
+                <p style="margin-top: 20px; font-size: 16px; line-height: 1.6;">All prices are in USD and include taxes. Check-in is at 2:00 PM, check-out at 11:00 AM. Early check-in and late check-out are subject to availability and additional charges. Cancellation policy: Free cancellation up to 48 hours before arrival. No-shows will be charged for the first night.</p>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Sunset Hostel</h3>
+                <p>Providing exceptional budget accommodation since 2010. Experience comfort, community, and value at our premium hostel.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="rooms.html">Rooms & Rates</a></li>
+                    <li><a href="facilities.html">Facilities</a></li>
+                    <li><a href="gallery.html">Photo Gallery</a></li>
+                    <li><a href="booking.html">Online Booking</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Information</h3>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="location.html">Location & Map</a></li>
+                    <li><a href="rules.html">House Rules</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe for exclusive offers and travel tips</p>
+                <div style="margin-top: 20px;">
+                    <input type="email" placeholder="Your email" style="width: 100%; padding: 12px; border: none; border-radius: 5px; margin-bottom: 10px;">
+                    <button class="pricing-btn" style="width: 100%; border-radius: 5px;">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Sunset Hostel. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            if (navLinks.classList.contains('active')) {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        const navLinksAll = document.querySelectorAll('.nav-links a');
+        for (let i = 0; i < navLinksAll.length; i++) {
+            navLinksAll[i].addEventListener('click', function() {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.nav-container');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(44, 62, 80, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = '#34495e';
+                header.style.backdropFilter = 'none';
+            }
+            
+            const elements = document.querySelectorAll('.pricing-card, .seasonal-rates, .discount-banner, .offer-box, .info-box');
+            for (let i = 0; i < elements.length; i++) {
+                const element = elements[i];
+                const position = element.getBoundingClientRect();
+                
+                if (position.top < window.innerHeight - 100) {
+                    element.classList.add('visible');
+                }
+            }
+        });
+        
+        const pricingCards = document.querySelectorAll('.pricing-card');
+        for (let i = 0; i < pricingCards.length; i++) {
+            pricingCards[i].style.transitionDelay = (i * 0.1) + 's';
+            
+            pricingCards[i].addEventListener('mouseenter', function() {
+                const price = this.querySelector('.price');
+                price.style.transform = 'scale(1.1)';
+                price.style.transition = 'transform 0.3s';
+            });
+            
+            pricingCards[i].addEventListener('mouseleave', function() {
+                const price = this.querySelector('.price');
+                price.style.transform = 'scale(1)';
+            });
+        }
+        
+        const featureListItems = document.querySelectorAll('.feature-list li');
+        for (let i = 0; i < featureListItems.length; i++) {
+            featureListItems[i].style.transitionDelay = (i * 0.05) + 's';
+            
+            featureListItems[i].addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(10px)';
+                this.style.backgroundColor = '#f8f9fa';
+            });
+            
+            featureListItems[i].addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+                this.style.backgroundColor = 'transparent';
+            });
+        }
+        
+        const tableRows = document.querySelectorAll('.rate-table tr');
+        for (let i = 0; i < tableRows.length; i++) {
+            tableRows[i].addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.01)';
+                this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+            });
+            
+            tableRows[i].addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = 'none';
+            });
+        }
+        
+        const offerBoxes = document.querySelectorAll('.offer-box');
+        for (let i = 0; i < offerBoxes.length; i++) {
+            offerBoxes[i].style.transitionDelay = (i * 0.1) + 's';
+            
+            offerBoxes[i].addEventListener('mouseenter', function() {
+                const icon = this.querySelector('i');
+                icon.style.transform = 'rotate(15deg) scale(1.2)';
+                icon.style.transition = 'transform 0.3s';
+            });
+            
+            offerBoxes[i].addEventListener('mouseleave', function() {
+                const icon = this.querySelector('i');
+                icon.style.transform = 'rotate(0) scale(1)';
+            });
+        }
+        
+        const currentYear = new Date().getFullYear();
+        const copyright = document.querySelector('.copyright p');
+        copyright.textContent = '© 2023-' + currentYear + ' Sunset Hostel. All rights reserved.';
+        
+        const seasonBadges = document.querySelectorAll('.high-season, .low-season');
+        for (let i = 0; i < seasonBadges.length; i++) {
+            seasonBadges[i].addEventListener('mouseenter', function() {
+                this.style.transform = 'rotate(5deg) scale(1.1)';
+                this.style.transition = 'transform 0.3s';
+            });
+            
+            seasonBadges[i].addEventListener('mouseleave', function() {
+                this.style.transform = 'rotate(0) scale(1)';
+            });
+        }
+        
+        const subscribeBtn = document.querySelector('.footer-column .pricing-btn');
+        subscribeBtn.addEventListener('click', function() {
+            const emailInput = document.querySelector('.footer-column input[type="email"]');
+            if (emailInput.value.includes('@')) {
+                emailInput.style.border = '2px solid #27ae60';
+                emailInput.style.backgroundColor = '#e8f8f5';
+                setTimeout(function() {
+                    emailInput.style.border = 'none';
+                    emailInput.style.backgroundColor = '';
+                    emailInput.value = '';
+                }, 2000);
+            } else {
+                emailInput.style.border = '2px solid #e74c3c';
+                emailInput.style.backgroundColor = '#fde8e8';
+                setTimeout(function() {
+                    emailInput.style.border = 'none';
+                    emailInput.style.backgroundColor = '';
+                }, 2000);
+            }
+        });
+        
+        const pricingBtns = document.querySelectorAll('.pricing-btn');
+        for (let i = 0; i < pricingBtns.length; i++) {
+            pricingBtns[i].addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+                this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+            });
+            
+            pricingBtns[i].addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = 'none';
+            });
+        }
+        
+        const socialIcons = document.querySelectorAll('.social-icons a');
+        for (let i = 0; i < socialIcons.length; i++) {
+            socialIcons[i].addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) rotate(5deg)';
+            });
+            
+            socialIcons[i].addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotate(0)';
+            });
+        }
+        
+        window.addEventListener('load', function() {
+            const pricingCardsAll = document.querySelectorAll('.pricing-card');
+            for (let i = 0; i < pricingCardsAll.length; i++) {
+                setTimeout(function() {
+                    pricingCardsAll[i].style.opacity = '0';
+                    pricingCardsAll[i].style.transform = 'translateY(20px)';
+                    
+                    setTimeout(function() {
+                        pricingCardsAll[i].style.transition = 'all 0.5s ease ' + (i * 0.1) + 's';
+                        pricingCardsAll[i].style.opacity = '1';
+                        pricingCardsAll[i].style.transform = 'translateY(0)';
+                    }, 100);
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>

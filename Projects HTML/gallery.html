@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Sunset Hostel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background: #f5f5f5;
+            color: #333;
+        }
+        
+        .top-header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        .top-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .top-header p {
+            font-size: 18px;
+            color: #f39c12;
+        }
+        
+        .nav-container {
+            background: #34495e;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .main-nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: #f39c12;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 20px 15px;
+            display: block;
+            transition: all 0.3s;
+            font-size: 15px;
+        }
+        
+        .nav-links a:hover {
+            background: #2c3e50;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .page-hero {
+            height: 50vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+        
+        .page-hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .page-hero p {
+            font-size: 20px;
+            max-width: 600px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: #2c3e50;
+            display: inline-block;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #f39c12;
+        }
+        
+        .gallery-filter {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 10px 25px;
+            background: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .filter-btn.active {
+            background: #3498db;
+            color: white;
+        }
+        
+        .filter-btn:hover:not(.active) {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .gallery-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: all 0.5s;
+        }
+        
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 20px;
+            color: white;
+            transform: translateY(100%);
+            transition: all 0.3s;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        
+        .gallery-category {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f39c12;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .virtual-tour {
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            padding: 60px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            margin: 80px 0;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .virtual-tour.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .virtual-tour h3 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .virtual-tour p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .tour-container {
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .photo-stats {
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            margin: 80px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .photo-stats.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            color: #f39c12;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #f39c12;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #f39c12;
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: #34495e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: #f39c12;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+        }
+        
+        @media (max-width: 1024px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: #2c3e50;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s;
+                z-index: 99;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                padding: 15px;
+                width: 100%;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .page-hero h2 {
+                font-size: 36px;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-hero h2 {
+                font-size: 28px;
+            }
+            
+            .page-hero p {
+                font-size: 16px;
+            }
+            
+            .section-title h2 {
+                font-size: 28px;
+            }
+            
+            .virtual-tour {
+                padding: 40px 20px;
+            }
+            
+            .virtual-tour h3 {
+                font-size: 28px;
+            }
+            
+            .tour-container {
+                height: 300px;
+            }
+            
+            .photo-stats {
+                padding: 30px 20px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+            background: rgba(0,0,0,0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+        }
+        
+        .prev-modal {
+            left: 20px;
+        }
+        
+        .next-modal {
+            right: 20px;
+        }
+        
+        .image-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 20px;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .image-counter {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .gallery-categories {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .category-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .category-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .category-icon {
+            font-size: 48px;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+        
+        .photo-slider {
+            position: relative;
+            height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 50px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .slider-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+        
+        .slider-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .slider-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .slider-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 30px;
+            color: white;
+        }
+        
+        .slider-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .slider-dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+        
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+        }
+        
+        .slider-prev {
+            left: 20px;
+        }
+        
+        .slider-next {
+            right: 20px;
+        }
+        
+        .share-gallery {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 60px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .share-gallery.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .share-btn {
+            padding: 12px 25px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        
+        .share-btn.facebook {
+            background: #3b5998;
+            color: white;
+        }
+        
+        .share-btn.instagram {
+            background: #e4405f;
+            color: white;
+        }
+        
+        .share-btn.twitter {
+            background: #1da1f2;
+            color: white;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <header class="top-header">
+        <h1>Photo Gallery</h1>
+        <p>Explore Sunset Hostel Through Photos</p>
+    </header>
+    
+    <nav class="nav-container">
+        <div class="main-nav">
+            <div class="logo">Sunset<span>Hostel</span></div>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="rooms.html"><i class="fas fa-bed"></i> Rooms</a></li>
+                <li><a href="facilities.html"><i class="fas fa-swimming-pool"></i> Facilities</a></li>
+                <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                <li><a href="pricing.html"><i class="fas fa-tag"></i> Pricing</a></li>
+                <li><a href="location.html"><i class="fas fa-map-marker-alt"></i> Location</a></li>
+                <li><a href="rules.html"><i class="fas fa-clipboard-list"></i> Rules</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="booking.html"><i class="fas fa-calendar-check"></i> Booking</a></li>
+                <li><a href="reviews.html"><i class="fas fa-star"></i> Reviews</a></li>
+                <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+            </ul>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <section class="page-hero">
+        <div>
+            <h2>Visual Journey</h2>
+            <p>Discover our hostel through stunning photos taken by our guests and staff</p>
+        </div>
+    </section>
+    
+    <main class="container">
+        <section class="section">
+            <div class="section-title">
+                <h2>Photo Gallery</h2>
+            </div>
+            
+            <div class="gallery-categories">
+                <div class="category-card" data-category="all">
+                    <i class="fas fa-images category-icon"></i>
+                    <h3>All Photos</h3>
+                    <p>View complete collection</p>
+                </div>
+                
+                <div class="category-card" data-category="rooms">
+                    <i class="fas fa-bed category-icon"></i>
+                    <h3>Rooms</h3>
+                    <p>Accommodation photos</p>
+                </div>
+                
+                <div class="category-card" data-category="facilities">
+                    <i class="fas fa-swimming-pool category-icon"></i>
+                    <h3>Facilities</h3>
+                    <p>Amenities & common areas</p>
+                </div>
+                
+                <div class="category-card" data-category="events">
+                    <i class="fas fa-calendar-alt category-icon"></i>
+                    <h3>Events</h3>
+                    <p>Social gatherings</p>
+                </div>
+            </div>
+            
+            <div class="gallery-filter">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="rooms">Rooms</button>
+                <button class="filter-btn" data-filter="facilities">Facilities</button>
+                <button class="filter-btn" data-filter="common">Common Areas</button>
+                <button class="filter-btn" data-filter="garden">Garden</button>
+                <button class="filter-btn" data-filter="events">Events</button>
+            </div>
+            
+            <div class="gallery-grid" id="galleryContainer">
+                <div class="gallery-item" data-category="rooms">
+                    <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427" class="gallery-img" alt="Dorm Room">
+                    <div class="gallery-category">Rooms</div>
+                    <div class="gallery-overlay">
+                        <h3>6-Bed Dormitory</h3>
+                        <p>Comfortable bunk beds with privacy curtains</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="rooms">
+                    <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7" class="gallery-img" alt="Private Room">
+                    <div class="gallery-category">Rooms</div>
+                    <div class="gallery-overlay">
+                        <h3>Private Single Room</h3>
+                        <p>Cozy private accommodation</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="facilities">
+                    <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e" class="gallery-img" alt="Kitchen">
+                    <div class="gallery-category">Facilities</div>
+                    <div class="gallery-overlay">
+                        <h3>Common Kitchen</h3>
+                        <p>Fully equipped for cooking</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="common">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945" class="gallery-img" alt="Lounge">
+                    <div class="gallery-category">Common Areas</div>
+                    <div class="gallery-overlay">
+                        <h3>TV Lounge</h3>
+                        <p>Relaxation and entertainment area</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="garden">
+                    <img src="https://images.unsplash.com/photo-1541976590-713941681591" class="gallery-img" alt="Garden">
+                    <div class="gallery-category">Garden</div>
+                    <div class="gallery-overlay">
+                        <h3>Outdoor Garden</h3>
+                        <p>Beautiful outdoor relaxation space</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="facilities">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12" class="gallery-img" alt="Study Room">
+                    <div class="gallery-category">Facilities</div>
+                    <div class="gallery-overlay">
+                        <h3>Study Room</h3>
+                        <p>Quiet workspace for guests</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="events">
+                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622" class="gallery-img" alt="BBQ Party">
+                    <div class="gallery-category">Events</div>
+                    <div class="gallery-overlay">
+                        <h3>BBQ Night</h3>
+                        <p>Weekly social gathering</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="common">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64" class="gallery-img" alt="Game Room">
+                    <div class="gallery-category">Common Areas</div>
+                    <div class="gallery-overlay">
+                        <h3>Game Room</h3>
+                        <p>Entertainment and fun zone</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="rooms">
+                    <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a" class="gallery-img" alt="Double Room">
+                    <div class="gallery-category">Rooms</div>
+                    <div class="gallery-overlay">
+                        <h3>Private Double Room</h3>
+                        <p>Spacious accommodation</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="facilities">
+                    <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7" class="gallery-img" alt="Bathroom">
+                    <div class="gallery-category">Facilities</div>
+                    <div class="gallery-overlay">
+                        <h3>Modern Bathroom</h3>
+                        <p>Clean and well-maintained</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="events">
+                    <img src="https://images.unsplash.com/photo-1541532713592-79a0317b6b77" class="gallery-img" alt="City Tour">
+                    <div class="gallery-category">Events</div>
+                    <div class="gallery-overlay">
+                        <h3>City Tour</h3>
+                        <p>Exploring local attractions</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="garden">
+                    <img src="https://images.unsplash.com/photo-1513584684374-8bab748fbf90" class="gallery-img" alt="Outdoor Seating">
+                    <div class="gallery-category">Garden</div>
+                    <div class="gallery-overlay">
+                        <h3>Garden Seating</h3>
+                        <p>Relax in nature</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="photo-slider">
+            <div class="slider-track" id="sliderTrack">
+                <div class="slider-slide">
+                    <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427" alt="Hostel Life">
+                    <div class="slider-overlay">
+                        <h3>Community Living</h3>
+                        <p>Experience the joy of shared accommodation</p>
+                    </div>
+                </div>
+                <div class="slider-slide">
+                    <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e" alt="Kitchen Area">
+                    <div class="slider-overlay">
+                        <h3>Shared Kitchen</h3>
+                        <p>Cook and socialize with fellow travelers</p>
+                    </div>
+                </div>
+                <div class="slider-slide">
+                    <img src="https://images.unsplash.com/photo-1541976590-713941681591" alt="Relaxation">
+                    <div class="slider-overlay">
+                        <h3>Relaxation Spaces</h3>
+                        <p>Unwind in our comfortable common areas</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-nav slider-prev" id="sliderPrev">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="slider-nav slider-next" id="sliderNext">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="slider-controls" id="sliderDots"></div>
+        </div>
+        
+        <div class="virtual-tour">
+            <h3>360° Virtual Tour</h3>
+            <p>Take an interactive virtual tour of our entire hostel property. Explore every corner from the comfort of your device.</p>
+            <a href="#" class="btn" style="background: white; color: #2c3e50; margin-right: 20px;">Start Virtual Tour</a>
+            <a href="rooms.html" class="btn" style="background: transparent; border: 2px solid white;">View Rooms</a>
+            
+            <div class="tour-container">
+                <div style="text-align: center;">
+                    <i class="fas fa-vr-cardboard" style="font-size: 64px; margin-bottom: 20px;"></i>
+                    <p style="font-size: 20px;">Loading Virtual Tour...</p>
+                    <p style="font-size: 16px; opacity: 0.8;">Experience our hostel in 360°</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="photo-stats">
+            <h3 style="text-align: center; margin-bottom: 40px; color: #2c3e50;">Photo Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="photoCount">0</div>
+                    <h3>Photos in Gallery</h3>
+                    <p>Regularly updated collection</p>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number" id="guestPhotos">0</div>
+                    <h3>Guest Photos</h3>
+                    <p>Submitted by our visitors</p>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number" id="categoriesCount">0</div>
+                    <h3>Categories</h3>
+                    <p>Organized collection</p>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-number" id="monthlyViews">0</div>
+                    <h3>Monthly Views</h3>
+                    <p>Gallery popularity</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="share-gallery">
+            <h3 style="text-align: center; margin-bottom: 20px; color: #2c3e50;">Share Your Experience</h3>
+            <p style="text-align: center; margin-bottom: 30px; font-size: 18px;">Tag us in your hostel photos for a chance to be featured in our gallery!</p>
+            <div class="share-buttons">
+                <button class="share-btn facebook">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </button>
+                <button class="share-btn instagram">
+                    <i class="fab fa-instagram"></i> Instagram
+                </button>
+                <button class="share-btn twitter">
+                    <i class="fab fa-twitter"></i> Twitter
+                </button>
+            </div>
+            <p style="text-align: center; margin-top: 30px; color: #666; font-size: 14px;">Use hashtag: #SunsetHostelMemories</p>
+        </div>
+        
+        <div style="text-align: center; margin-top: 60px;">
+            <h3 style="margin-bottom: 20px; color: #2c3e50;">Submit Your Photos</h3>
+            <p style="margin-bottom: 30px; font-size: 18px; max-width: 600px; margin: 0 auto 30px;">Have great photos from your stay? Share them with us!</p>
+            <a href="contact.html" class="btn">Contact to Submit Photos</a>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Sunset Hostel</h3>
+                <p>Providing exceptional budget accommodation since 2010. Experience comfort, community, and value at our premium hostel.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="rooms.html">Rooms & Rates</a></li>
+                    <li><a href="facilities.html">Facilities</a></li>
+                    <li><a href="gallery.html">Photo Gallery</a></li>
+                    <li><a href="booking.html">Online Booking</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Information</h3>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="location.html">Location & Map</a></li>
+                    <li><a href="rules.html">House Rules</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul class="footer-links">
+                    <li><a href="#">123 Sunset Boulevard</a></li>
+                    <li><a href="tel:+12345678900">+1 (234) 567-8900</a></li>
+                    <li><a href="mailto:info@sunsethostel.com">info@sunsethostel.com</a></li>
+                    <li><a href="#">24/7 Reception</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Sunset Hostel. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <div class="modal" id="imageModal">
+        <div class="image-counter" id="imageCounter">1 / 12</div>
+        <span class="close-modal" id="closeModal">&times;</span>
+        <div class="modal-nav prev-modal" id="prevModal">
+            <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="modal-nav next-modal" id="nextModal">
+            <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Gallery Image">
+            <div class="image-info" id="imageInfo">
+                <h3 id="modalTitle">Image Title</h3>
+                <p id="modalDescription">Image description goes here</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.onclick = function() {
+            navLinks.classList.toggle('active');
+            if (navLinks.classList.contains('active')) {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        };
+        
+        const navLinksAll = document.querySelectorAll('.nav-links a');
+        for (let i = 0; i < navLinksAll.length; i++) {
+            navLinksAll[i].onclick = function() {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            };
+        }
+        
+        window.onscroll = function() {
+            const header = document.querySelector('.nav-container');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(44, 62, 80, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = '#34495e';
+                header.style.backdropFilter = 'none';
+            }
+            
+            const elements = document.querySelectorAll('.gallery-item, .virtual-tour, .photo-stats, .share-gallery, .category-card');
+            for (let i = 0; i < elements.length; i++) {
+                const element = elements[i];
+                const position = element.getBoundingClientRect();
+                
+                if (position.top < window.innerHeight - 100) {
+                    element.classList.add('visible');
+                }
+            }
+        };
+        
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const categoryCards = document.querySelectorAll('.category-card');
+        
+        for (let i = 0; i < filterBtns.length; i++) {
+            filterBtns[i].onclick = function() {
+                const filter = this.getAttribute('data-filter');
+                
+                for (let j = 0; j < filterBtns.length; j++) {
+                    filterBtns[j].classList.remove('active');
+                }
+                
+                this.classList.add('active');
+                
+                for (let k = 0; k < galleryItems.length; k++) {
+                    const item = galleryItems[k];
+                    const category = item.getAttribute('data-category');
+                    
+                    if (filter === 'all' || category === filter) {
+                        item.style.display = 'block';
+                        setTimeout(function() {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 100);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                        setTimeout(function() {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                }
+            };
+        }
+        
+        for (let i = 0; i < categoryCards.length; i++) {
+            categoryCards[i].onclick = function() {
+                const category = this.getAttribute('data-category');
+                
+                for (let j = 0; j < filterBtns.length; j++) {
+                    if (filterBtns[j].getAttribute('data-filter') === category) {
+                        filterBtns[j].click();
+                        break;
+                    }
+                }
+            };
+        }
+        
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const imageCounter = document.getElementById('imageCounter');
+        const closeModal = document.getElementById('closeModal');
+        const prevModal = document.getElementById('prevModal');
+        const nextModal = document.getElementById('nextModal');
+        
+        let currentImageIndex = 0;
+        const galleryImages = document.querySelectorAll('.gallery-img');
+        const galleryTitles = document.querySelectorAll('.gallery-overlay h3');
+        const galleryDescriptions = document.querySelectorAll('.gallery-overlay p');
+        
+        for (let i = 0; i < galleryItems.length; i++) {
+            galleryItems[i].onclick = function() {
+                const img = this.querySelector('.gallery-img');
+                const title = this.querySelector('.gallery-overlay h3');
+                const desc = this.querySelector('.gallery-overlay p');
+                
+                currentImageIndex = i;
+                openModal(img.src, title.textContent, desc.textContent, i);
+            };
+        }
+        
+        function openModal(src, title, desc, index) {
+            modal.style.display = 'flex';
+            modalImage.src = src;
+            modalTitle.textContent = title;
+            modalDescription.textContent = desc;
+            currentImageIndex = index;
+            updateCounter();
+        }
+        
+        function updateCounter() {
+            imageCounter.textContent = (currentImageIndex + 1) + ' / ' + galleryImages.length;
+        }
+        
+        function showNextImage() {
+            currentImageIndex++;
+            if (currentImageIndex >= galleryImages.length) {
+                currentImageIndex = 0;
+            }
+            const item = galleryItems[currentImageIndex];
+            const img = item.querySelector('.gallery-img');
+            const title = item.querySelector('.gallery-overlay h3');
+            const desc = item.querySelector('.gallery-overlay p');
+            
+            modalImage.src = img.src;
+            modalTitle.textContent = title.textContent;
+            modalDescription.textContent = desc.textContent;
+            updateCounter();
+        }
+        
+        function showPrevImage() {
+            currentImageIndex--;
+            if (currentImageIndex < 0) {
+                currentImageIndex = galleryImages.length - 1;
+            }
+            const item = galleryItems[currentImageIndex];
+            const img = item.querySelector('.gallery-img');
+            const title = item.querySelector('.gallery-overlay h3');
+            const desc = item.querySelector('.gallery-overlay p');
+            
+            modalImage.src = img.src;
+            modalTitle.textContent = title.textContent;
+            modalDescription.textContent = desc.textContent;
+            updateCounter();
+        }
+        
+        closeModal.onclick = function() {
+            modal.style.display = 'none';
+        };
+        
+        nextModal.onclick = showNextImage;
+        prevModal.onclick = showPrevImage;
+        
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+        
+        document.onkeydown = function(e) {
+            if (modal.style.display === 'flex') {
+                if (e.key === 'Escape') {
+                    modal.style.display = 'none';
+                }
+                if (e.key === 'ArrowRight') {
+                    showNextImage();
+                }
+                if (e.key === 'ArrowLeft') {
+                    showPrevImage();
+                }
+            }
+        };
+        
+        const sliderTrack = document.getElementById('sliderTrack');
+        const sliderSlides = document.querySelectorAll('.slider-slide');
+        const sliderPrev = document.getElementById('sliderPrev');
+        const sliderNext = document.getElementById('sliderNext');
+        const sliderDots = document.getElementById('sliderDots');
+        let currentSlide = 0;
+        
+        for (let i = 0; i < sliderSlides.length; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'slider-dot';
+            if (i === 0) dot.classList.add('active');
+            dot.onclick = function() {
+                goToSlide(i);
+            };
+            sliderDots.appendChild(dot);
+        }
+        
+        function goToSlide(index) {
+            currentSlide = index;
+            sliderTrack.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+            
+
+        }
+        
+        sliderNext.onclick = function() {
+            currentSlide++;
+            if (currentSlide >= sliderSlides.length) {
+                currentSlide = 0;
+            }
+            goToSlide(currentSlide);
+        };
+        
+        sliderPrev.onclick = function() {
+            currentSlide--;
+            if (currentSlide < 0) {
+                currentSlide = sliderSlides.length - 1;
+            }
+            goToSlide(currentSlide);
+        };
+        
+        setInterval(function() {
+            sliderNext.click();
+        }, 5000);
+        
+        const counters = document.querySelectorAll('.stat-number');
+        const targetValues = [120, 85, 6, 2540];
+        
+        function animateCounters() {
+            for (let i = 0; i < counters.length; i++) {
+                const counter = counters[i];
+                const target = targetValues[i];
+                let current = 0;
+                const increment = target / 100;
+                
+                function updateCounter() {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.ceil(current);
+                        setTimeout(updateCounter, 20);
+                    } else {
+                        counter.textContent = target;
+                    }
+                }
+                
+                updateCounter();
+            }
+        }
+        
+        setTimeout(animateCounters, 1000);
+        
+        const currentYear = new Date().getFullYear();
+        const copyright = document.querySelector('.copyright p');
+        copyright.textContent = '© 2023-' + currentYear + ' Sunset Hostel. All rights reserved.';
+        
+        const bookingBtns = document.querySelectorAll('.btn');
+        for (let i = 0; i < bookingBtns.length; i++) {
+            bookingBtns[i].onmouseenter = function() {
+                this.style.transform = 'translateY(-3px)';
+            };
+            
+            bookingBtns[i].onmouseleave = function() {
+                this.style.transform = 'translateY(0)';
+            };
+        }
+        
+        const socialIcons = document.querySelectorAll('.social-icons a');
+        for (let i = 0; i < socialIcons.length; i++) {
+            socialIcons[i].onmouseenter = function() {
+                this.style.transform = 'translateY(-5px) rotate(5deg)';
+            };
+            
+            socialIcons[i].onmouseleave = function() {
+                this.style.transform = 'translateY(0) rotate(0)';
+            };
+        }
+        
+        const shareBtns = document.querySelectorAll('.share-btn');
+        for (let i = 0; i < shareBtns.length; i++) {
+            shareBtns[i].onclick = function() {
+                alert('Share feature would open here in a real website');
+            };
+        }
+        
+        window.onload = function() {
+            const pageHero = document.querySelector('.page-hero');
+            pageHero.style.opacity = '0';
+            pageHero.style.transform = 'translateY(20px)';
+            
+            setTimeout(function() {
+                pageHero.style.transition = 'all 1s ease';
+                pageHero.style.opacity = '1';
+                pageHero.style.transform = 'translateY(0)';
+            }, 300);
+            
+            const elements = document.querySelectorAll('.gallery-item, .category-card');
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].style.transitionDelay = (i * 0.1) + 's';
+            }
+        };
+    </script>
+</body>
+</html>

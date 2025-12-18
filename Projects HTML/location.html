@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunset Hostel - Location</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background: #f5f5f5;
+            color: #333;
+        }
+        
+        .top-header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        .top-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .top-header p {
+            font-size: 18px;
+            color: #f39c12;
+        }
+        
+        .nav-container {
+            background: #34495e;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .main-nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: #f39c12;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 20px 15px;
+            display: block;
+            transition: all 0.3s;
+            font-size: 15px;
+        }
+        
+        .nav-links a:hover {
+            background: #2c3e50;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+        
+        .section {
+            margin-bottom: 100px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: #2c3e50;
+            display: inline-block;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #f39c12;
+        }
+        
+        .location-hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 20px;
+            text-align: center;
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+        
+        .location-hero.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .location-hero h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .address-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+        
+        .address-box.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .address-icon {
+            font-size: 48px;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+        
+        .map-container {
+            height: 500px;
+            background: #2c3e50;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 50px 0;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+        
+        .map-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            background: #34495e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .map-placeholder i {
+            font-size: 80px;
+            margin-bottom: 20px;
+            color: #f39c12;
+        }
+        
+        .transport-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .transport-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .transport-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .transport-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .transport-icon {
+            font-size: 48px;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+        
+        .attractions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .attraction-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .attraction-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .attraction-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .attraction-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .attraction-info {
+            padding: 30px;
+        }
+        
+        .distance {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        
+        .directions-box {
+            background: #3498db;
+            color: white;
+            padding: 50px;
+            border-radius: 15px;
+            margin-top: 80px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+        
+        .directions-box.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .direction-step {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        
+        .step-number {
+            background: white;
+            color: #3498db;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #f39c12;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #f39c12;
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: #34495e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: #f39c12;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+        }
+        
+        @media (max-width: 1024px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: #2c3e50;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s;
+                z-index: 99;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                padding: 15px;
+                width: 100%;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .location-hero h2 {
+                font-size: 36px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .section-title h2 {
+                font-size: 28px;
+            }
+            
+            .location-hero {
+                padding: 60px 20px;
+            }
+            
+            .location-hero h2 {
+                font-size: 28px;
+            }
+            
+            .map-container {
+                height: 300px;
+            }
+            
+            .transport-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .attractions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .directions-box {
+                padding: 30px 20px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <header class="top-header">
+        <h1>Sunset Hostel</h1>
+        <p>Perfectly Located in the Heart of the City</p>
+    </header>
+    
+    <nav class="nav-container">
+        <div class="main-nav">
+            <div class="logo">Sunset<span>Hostel</span></div>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="rooms.html"><i class="fas fa-bed"></i> Rooms</a></li>
+                <li><a href="facilities.html"><i class="fas fa-swimming-pool"></i> Facilities</a></li>
+                <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                <li><a href="pricing.html"><i class="fas fa-tag"></i> Pricing</a></li>
+                <li><a href="location.html" class="active"><i class="fas fa-map-marker-alt"></i> Location</a></li>
+                <li><a href="rules.html"><i class="fas fa-clipboard-list"></i> Rules</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="booking.html"><i class="fas fa-calendar-check"></i> Booking</a></li>
+                <li><a href="reviews.html"><i class="fas fa-star"></i> Reviews</a></li>
+                <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+            </ul>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <div class="location-hero">
+            <h2>Find Us Easily</h2>
+            <p style="font-size: 20px; max-width: 600px; margin: 0 auto 30px;">We're located in the most vibrant part of the city, within walking distance to all major attractions</p>
+            <a href="#directions" class="btn">Get Directions</a>
+        </div>
+        
+        <div class="address-box">
+            <i class="fas fa-map-marker-alt address-icon"></i>
+            <h2 style="color: #2c3e50; margin-bottom: 15px;">Our Address</h2>
+            <p style="font-size: 24px; font-weight: bold; margin-bottom: 10px;">123 Sunset Boulevard</p>
+            <p style="font-size: 18px; color: #666; margin-bottom: 20px;">Central District, City 12345</p>
+            <p style="color: #3498db;"><i class="fas fa-phone"></i> +1 (234) 567-8900</p>
+        </div>
+        
+        <div class="map-container">
+            <div class="map-placeholder">
+                <i class="fas fa-map"></i>
+                <h3>Interactive Map</h3>
+                <p style="margin-top: 10px;">Click to view on Google Maps</p>
+                <button class="btn" style="margin-top: 20px;">Open Map</button>
+            </div>
+        </div>
+        
+        <section class="section">
+            <div class="section-title">
+                <h2>How to Reach Us</h2>
+            </div>
+            
+            <div class="transport-grid">
+                <div class="transport-card">
+                    <i class="fas fa-subway transport-icon"></i>
+                    <h3>By Metro</h3>
+                    <p>Central Station - Line 1 & 2<br>Exit at Gate B, 5 min walk</p>
+                </div>
+                
+                <div class="transport-card">
+                    <i class="fas fa-bus transport-icon"></i>
+                    <h3>By Bus</h3>
+                    <p>Bus routes: 101, 205, 308<br>Stop: Sunset Boulevard</p>
+                </div>
+                
+                <div class="transport-card">
+                    <i class="fas fa-taxi transport-icon"></i>
+                    <h3>By Taxi</h3>
+                    <p>Tell driver: "Sunset Hostel"<br>15 mins from airport</p>
+                </div>
+                
+                <div class="transport-card">
+                    <i class="fas fa-car transport-icon"></i>
+                    <h3>By Car</h3>
+                    <p>Parking available nearby<br>GPS: 40.7128° N, 74.0060° W</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="section-title">
+                <h2>Nearby Attractions</h2>
+            </div>
+            
+            <div class="attractions-grid">
+                <div class="attraction-card">
+                    <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad" class="attraction-img" alt="City Center">
+                    <div class="attraction-info">
+                        <h3>City Center</h3>
+                        <p>The main square with shops, cafes, and historical buildings</p>
+                        <div class="distance"><i class="fas fa-walking"></i> 5 minute walk</div>
+                    </div>
+                </div>
+                
+                <div class="attraction-card">
+                    <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96" class="attraction-img" alt="Museum">
+                    <div class="attraction-info">
+                        <h3>City Museum</h3>
+                        <p>Explore local history and art collections</p>
+                        <div class="distance"><i class="fas fa-walking"></i> 10 minute walk</div>
+                    </div>
+                </div>
+                
+                <div class="attraction-card">
+                    <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b" class="attraction-img" alt="Market">
+                    <div class="attraction-info">
+                        <h3>Local Market</h3>
+                        <p>Fresh produce, souvenirs, and local crafts</p>
+                        <div class="distance"><i class="fas fa-walking"></i> 8 minute walk</div>
+                    </div>
+                </div>
+                
+                <div class="attraction-card">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945" class="attraction-img" alt="Park">
+                    <div class="attraction-info">
+                        <h3>Central Park</h3>
+                        <p>Beautiful green space for relaxation</p>
+                        <div class="distance"><i class="fas fa-walking"></i> 15 minute walk</div>
+                    </div>
+                </div>
+                
+                <div class="attraction-card">
+                    <img src="https://images.unsplash.com/photo-1513584684374-8bab748fbf90" class="attraction-img" alt="Restaurant">
+                    <div class="attraction-info">
+                        <h3>Restaurant District</h3>
+                        <p>Variety of international cuisines</p>
+                        <div class="distance"><i class="fas fa-walking"></i> 7 minute walk</div>
+                    </div>
+                </div>
+                
+                <div class="attraction-card">
+                    <img src="https://images.unsplash.com/photo-1511739001486-6bfe10ce785f" class="attraction-img" alt="Train Station">
+                    <div class="attraction-info">
+                        <h3>Main Train Station</h3>
+                        <p>Connections to all major cities</p>
+                        <div class="distance"><i class="fas fa-subway"></i> 10 minutes by metro</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section" id="directions">
+            <div class="section-title">
+                <h2>Step-by-Step Directions</h2>
+            </div>
+            
+            <div class="directions-box">
+                <h3 style="text-align: center; margin-bottom: 40px; font-size: 28px;">From the Airport</h3>
+                
+                <div class="direction-step">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h4>Airport Express Bus</h4>
+                        <p>Take the Airport Express Bus (Line A1) to Central Station. Buses depart every 20 minutes.</p>
+                    </div>
+                </div>
+                
+                <div class="direction-step">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h4>Metro Connection</h4>
+                        <p>At Central Station, take Metro Line 2 towards Downtown. Get off at Sunset Station.</p>
+                    </div>
+                </div>
+                
+                <div class="direction-step">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h4>Final Walk</h4>
+                        <p>Exit the metro station at Gate B. Walk straight for 300m, turn right on Sunset Boulevard. We're on your left.</p>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="contact.html" class="btn">Need Help? Contact Us</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Sunset Hostel</h3>
+                <p>Providing exceptional budget accommodation since 2010. Experience comfort, community, and value at our premium hostel.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="rooms.html">Rooms & Rates</a></li>
+                    <li><a href="facilities.html">Facilities</a></li>
+                    <li><a href="gallery.html">Photo Gallery</a></li>
+                    <li><a href="booking.html">Online Booking</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Information</h3>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="location.html">Location & Map</a></li>
+                    <li><a href="rules.html">House Rules</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe for exclusive offers and travel tips</p>
+                <div style="margin-top: 20px;">
+                    <input type="email" placeholder="Your email" style="width: 100%; padding: 12px; border: none; border-radius: 5px; margin-bottom: 10px;">
+                    <button class="btn" style="width: 100%; border-radius: 5px;">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Sunset Hostel. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            if (navLinks.classList.contains('active')) {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        const navLinksAll = document.querySelectorAll('.nav-links a');
+        for (let i = 0; i < navLinksAll.length; i++) {
+            navLinksAll[i].addEventListener('click', function() {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.nav-container');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(44, 62, 80, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = '#34495e';
+                header.style.backdropFilter = 'none';
+            }
+            
+            const elements = document.querySelectorAll('.location-hero, .address-box, .map-container, .transport-card, .attraction-card, .directions-box');
+            for (let i = 0; i < elements.length; i++) {
+                const element = elements[i];
+                const position = element.getBoundingClientRect();
+                
+                if (position.top < window.innerHeight - 100) {
+                    element.classList.add('visible');
+                }
+            }
+        });
+        
+
+        const transportCards = document.querySelectorAll('.transport-card');
+        for (let i = 0; i < transportCards.length; i++) {
+            transportCards[i].style.transitionDelay = (i * 0.1) + 's';
+            
+            transportCards[i].addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.transport-icon');
+                icon.style.transform = 'rotate(15deg) scale(1.2)';
+                icon.style.transition = 'transform 0.3s';
+            });
+            
+            transportCards[i].addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.transport-icon');
+                icon.style.transform = 'rotate(0) scale(1)';
+            });
+        }
+        
+        const attractionCards = document.querySelectorAll('.attraction-card');
+        for (let i = 0; i < attractionCards.length; i++) {
+            attractionCards[i].style.transitionDelay = (i * 0.1) + 's';
+            
+            attractionCards[i].addEventListener('mouseenter', function() {
+                const img = this.querySelector('.attraction-img');
+                img.style.transform = 'scale(1.1)';
+                img.style.transition = 'transform 0.3s';
+            });
+            
+            attractionCards[i].addEventListener('mouseleave', function() {
+                const img = this.querySelector('.attraction-img');
+                img.style.transform = 'scale(1)';
+            });
+        }
+        
+        const directionSteps = document.querySelectorAll('.direction-step');
+        for (let i = 0; i < directionSteps.length; i++) {
+            directionSteps[i].style.transitionDelay = (i * 0.2) + 's';
+            
+            directionSteps[i].addEventListener('mouseenter', function() {
+                const number = this.querySelector('.step-number');
+                number.style.transform = 'scale(1.2) rotate(360deg)';
+                number.style.transition = 'transform 0.5s';
+            });
+            
+            directionSteps[i].addEventListener('mouseleave', function() {
+                const number = this.querySelector('.step-number');
+                number.style.transform = 'scale(1) rotate(0)';
+            });
+        }
+        
+        const currentYear = new Date().getFullYear();
+        const copyright = document.querySelector('.copyright p');
+        copyright.textContent = '© 2023-' + currentYear + ' Sunset Hostel. All rights reserved.';
+        
+        const subscribeBtn = document.querySelector('.footer-column .btn');
+        subscribeBtn.addEventListener('click', function() {
+            const emailInput = document.querySelector('.footer-column input[type="email"]');
+            if (emailInput.value.includes('@')) {
+                emailInput.style.border = '2px solid #27ae60';
+                emailInput.style.backgroundColor = '#e8f8f5';
+                setTimeout(function() {
+                    emailInput.style.border = 'none';
+                    emailInput.style.backgroundColor = '';
+                    emailInput.value = '';
+                }, 2000);
+            } else {
+                emailInput.style.border = '2px solid #e74c3c';
+                emailInput.style.backgroundColor = '#fde8e8';
+                setTimeout(function() {
+                    emailInput.style.border = 'none';
+                    emailInput.style.backgroundColor = '';
+                }, 2000);
+            }
+        });
+        
+        const socialIcons = document.querySelectorAll('.social-icons a');
+        for (let i = 0; i < socialIcons.length; i++) {
+            socialIcons[i].addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) rotate(5deg)';
+            });
+            
+            socialIcons[i].addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotate(0)';
+            });
+        }
+        
+        const distanceElements = document.querySelectorAll('.distance');
+        for (let i = 0; i < distanceElements.length; i++) {
+            distanceElements[i].addEventListener('mouseenter', function() {
+                this.style.transform = 'translateX(10px)';
+                this.style.transition = 'transform 0.3s';
+            });
+            
+            distanceElements[i].addEventListener('mouseleave', function() {
+                this.style.transform = 'translateX(0)';
+            });
+        }
+        
+        window.addEventListener('load', function() {
+            const hero = document.querySelector('.location-hero');
+            hero.style.opacity = '0';
+            hero.style.transform = 'translateY(20px)';
+            
+            setTimeout(function() {
+                hero.style.transition = 'all 1s ease';
+                hero.style.opacity = '1';
+                hero.style.transform = 'translateY(0)';
+            }, 300);
+        });
+    </script>
+</body>
+</html>

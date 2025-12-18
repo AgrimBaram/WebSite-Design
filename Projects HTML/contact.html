@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunset Hostel - Contact Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background: #f5f5f5;
+            color: #333;
+        }
+        
+        .top-header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        
+        .top-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .top-header p {
+            font-size: 18px;
+            color: #f39c12;
+        }
+        
+        .nav-container {
+            background: #34495e;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .main-nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: #f39c12;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 20px 15px;
+            display: block;
+            transition: all 0.3s;
+            font-size: 15px;
+        }
+        
+        .nav-links a:hover {
+            background: #2c3e50;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+        
+        .section {
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: #2c3e50;
+            display: inline-block;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #f39c12;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 30px;
+        }
+        
+        .contact-info {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+        
+        .contact-info.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .info-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            color: white;
+            font-size: 20px;
+        }
+        
+        .info-content h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+        
+        .contact-form.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+        
+        .map-container {
+            height: 400px;
+            background: #ddd;
+            border-radius: 10px;
+            margin-top: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+        
+        .map-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .faq-section {
+            margin-top: 80px;
+        }
+        
+        .faq-item {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+        }
+        
+        .faq-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .faq-question {
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+        }
+        
+        .faq-question h4 {
+            font-size: 18px;
+            color: #2c3e50;
+        }
+        
+        .faq-icon {
+            color: #3498db;
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .faq-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .faq-answer p {
+            padding: 25px 0;
+            border-top: 1px solid #eee;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #f39c12;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #f39c12;
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            background: #34495e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: #f39c12;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+        }
+        
+        @media (max-width: 1024px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: #2c3e50;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: all 0.3s;
+                z-index: 99;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .nav-links a {
+                padding: 15px;
+                width: 100%;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .top-header h1 {
+                font-size: 28px;
+            }
+            
+            .section-title h2 {
+                font-size: 28px;
+            }
+            
+            .contact-info,
+            .contact-form {
+                padding: 30px 20px;
+            }
+            
+            .info-item {
+                flex-direction: column;
+            }
+            
+            .info-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .form-message {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .form-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .form-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .hours-table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .hours-table td {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .hours-table td:last-child {
+            text-align: right;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <header class="top-header">
+        <h1>Sunset Hostel</h1>
+        <p>Get in Touch With Us</p>
+    </header>
+    
+    <nav class="nav-container">
+        <div class="main-nav">
+            <div class="logo">Sunset<span>Hostel</span></div>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="rooms.html"><i class="fas fa-bed"></i> Rooms</a></li>
+                <li><a href="facilities.html"><i class="fas fa-swimming-pool"></i> Facilities</a></li>
+                <li><a href="gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                <li><a href="pricing.html"><i class="fas fa-tag"></i> Pricing</a></li>
+                <li><a href="location.html"><i class="fas fa-map-marker-alt"></i> Location</a></li>
+                <li><a href="rules.html"><i class="fas fa-clipboard-list"></i> Rules</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="booking.html"><i class="fas fa-calendar-check"></i> Booking</a></li>
+                <li><a href="reviews.html"><i class="fas fa-star"></i> Reviews</a></li>
+                <li><a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a></li>
+            </ul>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <section class="section">
+            <div class="section-title">
+                <h2>Contact Us</h2>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Our Address</h4>
+                            <p>123 Sunset Boulevard<br>Central District<br>City 12345, Country</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Phone Numbers</h4>
+                            <p>Main: +1 (234) 567-8900<br>Reservations: +1 (234) 567-8901<br>Emergency: +1 (234) 567-8910</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Email Addresses</h4>
+                            <p>info@sunsethostel.com<br>reservations@sunsethostel.com<br>support@sunsethostel.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Working Hours</h4>
+                            <table class="hours-table">
+                                <tr>
+                                    <td>Reception (24/7)</td>
+                                    <td>Always Open</td>
+                                </tr>
+                                <tr>
+                                    <td>Check-in Time</td>
+                                    <td>2:00 PM - 11:00 PM</td>
+                                </tr>
+                                <tr>
+                                    <td>Check-out Time</td>
+                                    <td>7:00 AM - 11:00 AM</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <div id="formMessage" class="form-message"></div>
+                    
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="booking">Booking Inquiry</option>
+                                <option value="reservation">Reservation Question</option>
+                                <option value="general">General Question</option>
+                                <option value="feedback">Feedback</option>
+                                <option value="complaint">Complaint</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="6" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="map-container">
+                <div style="width: 100%; height: 100%; background: linear-gradient(45deg, #3498db, #2ecc71); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
+                    <div style="text-align: center;">
+                        <i class="fas fa-map-marked-alt" style="font-size: 48px; margin-bottom: 20px;"></i>
+                        <h3>Interactive Map Location</h3>
+                        <p>Click to view detailed map</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="faq-section">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>What are your check-in and check-out times?</h4>
+                    <div class="faq-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>Check-in time is from 2:00 PM, and check-out time is until 11:00 AM. Early check-in and late check-out may be available upon request and are subject to availability.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Do you offer airport transfer service?</h4>
+                    <div class="faq-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we offer airport transfer service at an additional cost. Please contact us in advance to arrange airport pickup. We also provide information about public transportation options.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Is there free parking available?</h4>
+                    <div class="faq-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>We offer limited free parking spaces on a first-come, first-served basis. There are also paid parking options available nearby. Please inform us in advance if you need parking.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Sunset Hostel</h3>
+                <p>Providing exceptional budget accommodation since 2010. Experience comfort, community, and value at our premium hostel.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-tripadvisor"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="rooms.html">Rooms & Rates</a></li>
+                    <li><a href="facilities.html">Facilities</a></li>
+                    <li><a href="gallery.html">Photo Gallery</a></li>
+                    <li><a href="booking.html">Online Booking</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Information</h3>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="location.html">Location & Map</a></li>
+                    <li><a href="rules.html">House Rules</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p>Subscribe for exclusive offers and travel tips</p>
+                <div style="margin-top: 20px;">
+                    <input type="email" placeholder="Your email" style="width: 100%; padding: 12px; border: none; border-radius: 5px; margin-bottom: 10px;">
+                    <button class="btn" style="width: 100%; padding: 12px;">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Sunset Hostel. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            if (navLinks.classList.contains('active')) {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+        
+        const navLinksAll = document.querySelectorAll('.nav-links a');
+        for (let i = 0; i < navLinksAll.length; i++) {
+            navLinksAll[i].addEventListener('click', function() {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.nav-container');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(44, 62, 80, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = '#34495e';
+                header.style.backdropFilter = 'none';
+            }
+            
+            const elements = document.querySelectorAll('.contact-info, .contact-form, .map-container, .faq-item');
+            for (let i = 0; i < elements.length; i++) {
+                const element = elements[i];
+                const position = element.getBoundingClientRect();
+                
+                if (position.top < window.innerHeight - 100) {
+                    element.classList.add('visible');
+                }
+            }
+        });
+        
+        const faqItems = document.querySelectorAll('.faq-item');
+        for (let i = 0; i < faqItems.length; i++) {
+            const faqItem = faqItems[i];
+            const faqQuestion = faqItem.querySelector('.faq-question');
+            
+            faqQuestion.addEventListener('click', function() {
+                for (let j = 0; j < faqItems.length; j++) {
+                    if (faqItems[j] !== faqItem) {
+                        faqItems[j].classList.remove('active');
+                    }
+                }
+                faqItem.classList.toggle('active');
+            });
+            
+            faqItem.style.transitionDelay = (i * 0.2) + 's';
+        }
+        
+        const contactForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            if (!name || !email || !subject || !message) {
+                formMessage.textContent = 'Please fill in all required fields.';
+                formMessage.className = 'form-message error';
+                formMessage.style.display = 'block';
+                return;
+            }
+            
+            if (!email.includes('@')) {
+                formMessage.textContent = 'Please enter a valid email address.';
+                formMessage.className = 'form-message error';
+                formMessage.style.display = 'block';
+                return;
+            }
+            
+            formMessage.textContent = 'Thank you! Your message has been sent. We will get back to you within 24 hours.';
+            formMessage.className = 'form-message success';
+            formMessage.style.display = 'block';
+            
+            setTimeout(function() {
+                formMessage.style.display = 'none';
+                contactForm.reset();
+            }, 5000);
+        });
+        
+        const mapContainer = document.querySelector('.map-container');
+        mapContainer.addEventListener('click', function() {
+            window.location.href = 'location.html';
+        });
+        
+        const formInputs = document.querySelectorAll('.form-group input, .form-group textarea, .form-group select');
+        for (let i = 0; i < formInputs.length; i++) {
+            formInputs[i].addEventListener('focus', function() {
+                this.parentElement.style.transform = 'translateY(-5px)';
+            });
+            
+            formInputs[i].addEventListener('blur', function() {
+                this.parentElement.style.transform = 'translateY(0)';
+            });
+        }
+        
+        const socialIcons = document.querySelectorAll('.social-icons a');
+        for (let i = 0; i < socialIcons.length; i++) {
+            socialIcons[i].addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) rotate(5deg)';
+            });
+            
+            socialIcons[i].addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotate(0)';
+            });
+        }
+        
+        const infoIcons = document.querySelectorAll('.info-icon');
+        for (let i = 0; i < infoIcons.length; i++) {
+            infoIcons[i].addEventListener('mouseenter', function() {
+                this.style.transform = 'rotate(15deg) scale(1.1)';
+                this.style.backgroundColor = '#e74c3c';
+            });
+            
+            infoIcons[i].addEventListener('mouseleave', function() {
+                this.style.transform = 'rotate(0) scale(1)';
+                this.style.backgroundColor = '#3498db';
+            });
+        }
+        
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 3 && value.length <= 6) {
+                value = value.replace(/(\d{3})(\d+)/, '($1) $2');
+            } else if (value.length > 6) {
+                value = value.replace(/(\d{3})(\d{3})(\d+)/, '($1) $2-$3');
+            }
+            e.target.value = value;
+        });
+        
+        const subscribeBtn = document.querySelector('.footer-column .btn');
+        subscribeBtn.addEventListener('click', function() {
+            const emailInput = document.querySelector('.footer-column input[type="email"]');
+            if (emailInput.value.includes('@')) {
+                emailInput.style.border = '2px solid #27ae60';
+                emailInput.style.backgroundColor = '#e8f8f5';
+                setTimeout(function() {
+                    emailInput.style.border = 'none';
+                    emailInput.style.backgroundColor = '';
+                    emailInput.value = '';
+                }, 2000);
+            } else {
+                emailInput.style.border = '2px solid #e74c3c';
+                emailInput.style.backgroundColor = '#fde8e8';
+                setTimeout(function() {
+                    emailInput.style.border = 'none';
+                    emailInput.style.backgroundColor = '';
+                }, 2000);
+            }
+        });
+        
+        const currentYear = new Date().getFullYear();
+        const copyright = document.querySelector('.copyright p');
+        copyright.textContent = '© 2023-' + currentYear + ' Sunset Hostel. All rights reserved.';
+        
+        window.addEventListener('load', function() {
+            const elements = document.querySelectorAll('.contact-info, .contact-form');
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].style.transitionDelay = (i * 0.3) + 's';
+            }
+            
+            const formGroups = document.querySelectorAll('.form-group');
+            for (let i = 0; i < formGroups.length; i++) {
+                formGroups[i].style.transitionDelay = (i * 0.1) + 's';
+            }
+        });
+        
+        const subjectSelect = document.getElementById('subject');
+        subjectSelect.addEventListener('change', function() {
+            if (this.value === 'booking' || this.value === 'reservation') {
+                const messageTextarea = document.getElementById('message');
+                messageTextarea.placeholder = 'Please include your desired dates, number of guests, and room type preference...';
+            } else {
+                const messageTextarea = document.getElementById('message');
+                messageTextarea.placeholder = '';
+            }
+        });
+    </script>
+</body>
+</html>
